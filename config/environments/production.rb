@@ -2,6 +2,15 @@ Topcut::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address =>"smtp.sendgrid.com",
+    :port => "25",
+    :authentication => "plain",
+    :user_name =>"shahidjutt72",
+    :password =>"786999ab",
+  }
+  config.action_mailer.default_url_options = {:host => 'http://topcut.herokuapp.com'}
   config.cache_classes = true
 
   # Eager load code on boot. This eager loads most of Rails and
@@ -59,6 +68,7 @@ Topcut::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+  config.assets.precompile += %w( admin.js,admin.css )
   # config.assets.precompile += %w( search.js )
 
   # Ignore bad email addresses and do not raise email delivery errors.

@@ -1,0 +1,19 @@
+!!!
+%html
+	%head
+		%title Topcut
+		= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+		= javascript_include_tag "application", "data-turbolinks-track" => true
+		= csrf_meta_tags
+	%body
+		-if current_user
+			= link_to "Sign Out", "/users/sign_out"
+		-else
+			= link_to "Sign In", "/users/sign_in"
+			%br
+			= link_to "Sign Up", "/users/sign_up"
+		
+		- if notice
+			%br
+			= notice  
+		= yield

@@ -1,9 +1,22 @@
 Topcut::Application.routes.draw do
+  devise_for :users
+  
+  devise_scope :user do
+    match "/users/sign_out" => "devise/sessions#destroy", :via => "get"    
+  end
+  get "home/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  resources :manage_users do as_routes 
+    member do
+      get "confirm_user"
+    end  
+  end
+  resources :manage_promotions do as_routes end
+  match "/admin" => "manage_users#index", :via => "get"  
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

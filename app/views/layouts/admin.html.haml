@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %title Admin Panel
+    = stylesheet_link_tag    "admin", :media => "all"
+    = javascript_include_tag "admin"
+    = csrf_meta_tags
+  %body
+    - if current_user
+      = link_to "LogOut", "/users/sign_out"      
+    - else
+      = link_to "Sign in", "/users/sign_in"
+
+    #header.drop_down_mine{:style => "width:100%;border-radius:0px;"}
+      %ul.dropdown
+        %li
+          %a{:href => manage_users_path} Manage Users
+        %li
+          %a{:href => manage_promotions_path} Manage Promotions        
+      .clr  
+    = yield

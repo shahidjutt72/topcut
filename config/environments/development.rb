@@ -1,9 +1,18 @@
 Topcut::Application.configure do
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address =>"smtp.sendgrid.com",
+    :port => "25",
+    :authentication => "plain",
+    :user_name =>"shahidjutt72",
+    :password =>"786999ab",
+  }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
+  config.action_mailer.default_url_options = {:host => 'localhost:3000'}
   config.cache_classes = false
 
   # Do not eager load code on boot.
