@@ -1,4 +1,14 @@
 Topcut::Application.routes.draw do
+  resources :timings
+
+  resources :companies
+
+  resources :customers
+
+  resources :services
+
+  resources :staffs
+
   devise_for :users
   
   devise_scope :user do
@@ -14,9 +24,11 @@ Topcut::Application.routes.draw do
       get "confirm_user"
     end  
   end
+  match '/auth/:provider/callback' => "authentications#new", :via =>["get","post"]
   resources :manage_promotions do as_routes end
   match "/admin" => "manage_users#index", :via => "get"  
   root 'home#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

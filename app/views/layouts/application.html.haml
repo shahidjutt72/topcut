@@ -9,6 +9,8 @@
 		-if current_user
 			= link_to "Sign Out", "/users/sign_out"
 		-else
+			= link_to "Sign In From Facebook", "/auth/facebook"
+			%br
 			= link_to "Sign In", "/users/sign_in"
 			%br
 			= link_to "Sign Up", "/users/sign_up"

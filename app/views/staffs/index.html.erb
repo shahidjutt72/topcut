@@ -1,0 +1,45 @@
+<h1>Listing staffs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Staff description</th>
+      <th>Phone</th>
+      <th>Image file name</th>
+      <th>Image file size</th>
+      <th>Image content type</th>
+      <th>Cc email</th>
+      <th>Can login</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @staffs.each do |staff| %>
+      <tr>
+        <td><%= staff.name %></td>
+        <td><%= staff.email %></td>
+        <td><%= staff.staff_description %></td>
+        <td><%= staff.phone %></td>
+        <td><%= staff.image_file_name %></td>
+        <td><%= staff.image_file_size %></td>
+        <td><%= staff.image_content_type %></td>
+        <td><%= staff.cc_email %></td>
+        <td><%= staff.can_login %></td>
+        <td><%= staff.user_id %></td>
+        <td><%= link_to 'Show', staff %></td>
+        <td><%= link_to 'Edit', edit_staff_path(staff) %></td>
+        <td><%= link_to 'Destroy', staff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Staff', new_staff_path %>

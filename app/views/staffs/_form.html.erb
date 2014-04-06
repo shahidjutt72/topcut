@@ -1,0 +1,57 @@
+<%= form_for(@staff) do |f| %>
+  <% if @staff.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@staff.errors.count, "error") %> prohibited this staff from being saved:</h2>
+
+      <ul>
+      <% @staff.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :staff_description %><br>
+    <%= f.text_field :staff_description %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :image_file_name %><br>
+    <%= f.text_field :image_file_name %>
+  </div>
+  <div class="field">
+    <%= f.label :image_file_size %><br>
+    <%= f.number_field :image_file_size %>
+  </div>
+  <div class="field">
+    <%= f.label :image_content_type %><br>
+    <%= f.text_field :image_content_type %>
+  </div>
+  <div class="field">
+    <%= f.label :cc_email %><br>
+    <%= f.text_field :cc_email %>
+  </div>
+  <div class="field">
+    <%= f.label :can_login %><br>
+    <%= f.check_box :can_login %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -11,12 +11,111 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323052553) do
+ActiveRecord::Schema.define(version: 20140406094931) do
+
+  create_table "authentications", force: true do |t|
+    t.string   "provider"
+    t.string   "u_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.string   "business_type"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customers", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "mobile_phone"
+    t.string   "office_phone"
+    t.string   "home_phone"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "ountry"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "promotions", force: true do |t|
     t.string   "name"
     t.text     "message"
     t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "services", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.float    "cost"
+    t.float    "service_time"
+    t.float    "buffer_time"
+    t.boolean  "show_on_calendar"
+    t.integer  "user_id"
+    t.string   "image_file_name"
+    t.integer  "image_file_size"
+    t.string   "image_content_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "staffs", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "staff_description"
+    t.string   "phone"
+    t.string   "image_file_name"
+    t.integer  "image_file_size"
+    t.string   "image_content_type"
+    t.string   "cc_email"
+    t.boolean  "can_login"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "table_customers_staffs", force: true do |t|
+    t.integer "customer_id"
+    t.integer "staff_id"
+  end
+
+  create_table "table_services_staffs", force: true do |t|
+    t.integer "service_id"
+    t.integer "staff_id"
+  end
+
+  create_table "timings", force: true do |t|
+    t.string   "sun_opening_time"
+    t.string   "sun_closing_time"
+    t.boolean  "is_on_sun"
+    t.string   "mon_opening_time"
+    t.string   "mon_closing_time"
+    t.boolean  "is_on_mon"
+    t.string   "tue_opening_time"
+    t.string   "tue_closing_time"
+    t.boolean  "is_on_tue"
+    t.string   "wed_opening_time"
+    t.string   "wed_closing_time"
+    t.boolean  "is_on_wed"
+    t.string   "thu_opening_time"
+    t.string   "thu_closing_time"
+    t.boolean  "is_on_thu"
+    t.string   "fri_opening_time"
+    t.string   "fri_closing_time"
+    t.boolean  "is_on_fri"
+    t.string   "sat_opening_time"
+    t.string   "sat_closing_time"
+    t.boolean  "is_on_sat"
+    t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

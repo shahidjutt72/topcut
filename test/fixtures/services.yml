@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  cost: 1.5
+  service_time: 1.5
+  buffer_time: 1.5
+  show_on_calendar: false
+  user_id: 1
+  image_file_name: MyString
+  image_file_size: 1
+  image_content_type: MyString
+
+two:
+  name: MyString
+  description: MyText
+  cost: 1.5
+  service_time: 1.5
+  buffer_time: 1.5
+  show_on_calendar: false
+  user_id: 1
+  image_file_name: MyString
+  image_file_size: 1
+  image_content_type: MyString

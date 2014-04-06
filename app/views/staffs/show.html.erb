@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @staff.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @staff.email %>
+</p>
+
+<p>
+  <strong>Staff description:</strong>
+  <%= @staff.staff_description %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @staff.phone %>
+</p>
+
+<p>
+  <strong>Image file name:</strong>
+  <%= @staff.image_file_name %>
+</p>
+
+<p>
+  <strong>Image file size:</strong>
+  <%= @staff.image_file_size %>
+</p>
+
+<p>
+  <strong>Image content type:</strong>
+  <%= @staff.image_content_type %>
+</p>
+
+<p>
+  <strong>Cc email:</strong>
+  <%= @staff.cc_email %>
+</p>
+
+<p>
+  <strong>Can login:</strong>
+  <%= @staff.can_login %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @staff.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_staff_path(@staff) %> |
+<%= link_to 'Back', staffs_path %>

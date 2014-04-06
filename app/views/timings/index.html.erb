@@ -1,0 +1,69 @@
+<h1>Listing timings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sun opening time</th>
+      <th>Sun closing time</th>
+      <th>Is on sun</th>
+      <th>Mon opening time</th>
+      <th>Mon closing time</th>
+      <th>Is on mon</th>
+      <th>Tue opening time</th>
+      <th>Tue closing time</th>
+      <th>Is on tue</th>
+      <th>Wed opening time</th>
+      <th>Wed closing time</th>
+      <th>Is on wed</th>
+      <th>Thu opening time</th>
+      <th>Thu closing time</th>
+      <th>Is on thu</th>
+      <th>Fri opening time</th>
+      <th>Fri closing time</th>
+      <th>Is on fri</th>
+      <th>Sat opening time</th>
+      <th>Sat closing time</th>
+      <th>Is on sat</th>
+      <th>Company</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @timings.each do |timing| %>
+      <tr>
+        <td><%= timing.sun_opening_time %></td>
+        <td><%= timing.sun_closing_time %></td>
+        <td><%= timing.is_on_sun %></td>
+        <td><%= timing.mon_opening_time %></td>
+        <td><%= timing.mon_closing_time %></td>
+        <td><%= timing.is_on_mon %></td>
+        <td><%= timing.tue_opening_time %></td>
+        <td><%= timing.tue_closing_time %></td>
+        <td><%= timing.is_on_tue %></td>
+        <td><%= timing.wed_opening_time %></td>
+        <td><%= timing.wed_closing_time %></td>
+        <td><%= timing.is_on_wed %></td>
+        <td><%= timing.thu_opening_time %></td>
+        <td><%= timing.thu_closing_time %></td>
+        <td><%= timing.is_on_thu %></td>
+        <td><%= timing.fri_opening_time %></td>
+        <td><%= timing.fri_closing_time %></td>
+        <td><%= timing.is_on_fri %></td>
+        <td><%= timing.sat_opening_time %></td>
+        <td><%= timing.sat_closing_time %></td>
+        <td><%= timing.is_on_sat %></td>
+        <td><%= timing.company_id %></td>
+        <td><%= link_to 'Show', timing %></td>
+        <td><%= link_to 'Edit', edit_timing_path(timing) %></td>
+        <td><%= link_to 'Destroy', timing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Timing', new_timing_path %>

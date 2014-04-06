@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sun_opening_time: MyString
+  sun_closing_time: MyString
+  is_on_sun: false
+  mon_opening_time: MyString
+  mon_closing_time: MyString
+  is_on_mon: false
+  tue_opening_time: MyString
+  tue_closing_time: MyString
+  is_on_tue: false
+  wed_opening_time: MyString
+  wed_closing_time: MyString
+  is_on_wed: false
+  thu_opening_time: MyString
+  thu_closing_time: MyString
+  is_on_thu: false
+  fri_opening_time: MyString
+  fri_closing_time: MyString
+  is_on_fri: false
+  sat_opening_time: MyString
+  sat_closing_time: MyString
+  is_on_sat: false
+  company_id: 1
+
+two:
+  sun_opening_time: MyString
+  sun_closing_time: MyString
+  is_on_sun: false
+  mon_opening_time: MyString
+  mon_closing_time: MyString
+  is_on_mon: false
+  tue_opening_time: MyString
+  tue_closing_time: MyString
+  is_on_tue: false
+  wed_opening_time: MyString
+  wed_closing_time: MyString
+  is_on_wed: false
+  thu_opening_time: MyString
+  thu_closing_time: MyString
+  is_on_thu: false
+  fri_opening_time: MyString
+  fri_closing_time: MyString
+  is_on_fri: false
+  sat_opening_time: MyString
+  sat_closing_time: MyString
+  is_on_sat: false
+  company_id: 1

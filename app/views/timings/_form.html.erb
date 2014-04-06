@@ -1,0 +1,105 @@
+<%= form_for(@timing) do |f| %>
+  <% if @timing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@timing.errors.count, "error") %> prohibited this timing from being saved:</h2>
+
+      <ul>
+      <% @timing.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sun_opening_time %><br>
+    <%= f.text_field :sun_opening_time %>
+  </div>
+  <div class="field">
+    <%= f.label :sun_closing_time %><br>
+    <%= f.text_field :sun_closing_time %>
+  </div>
+  <div class="field">
+    <%= f.label :is_on_sun %><br>
+    <%= f.check_box :is_on_sun %>
+  </div>
+  <div class="field">
+    <%= f.label :mon_opening_time %><br>
+    <%= f.text_field :mon_opening_time %>
+  </div>
+  <div class="field">
+    <%= f.label :mon_closing_time %><br>
+    <%= f.text_field :mon_closing_time %>
+  </div>
+  <div class="field">
+    <%= f.label :is_on_mon %><br>
+    <%= f.check_box :is_on_mon %>
+  </div>
+  <div class="field">
+    <%= f.label :tue_opening_time %><br>
+    <%= f.text_field :tue_opening_time %>
+  </div>
+  <div class="field">
+    <%= f.label :tue_closing_time %><br>
+    <%= f.text_field :tue_closing_time %>
+  </div>
+  <div class="field">
+    <%= f.label :is_on_tue %><br>
+    <%= f.check_box :is_on_tue %>
+  </div>
+  <div class="field">
+    <%= f.label :wed_opening_time %><br>
+    <%= f.text_field :wed_opening_time %>
+  </div>
+  <div class="field">
+    <%= f.label :wed_closing_time %><br>
+    <%= f.text_field :wed_closing_time %>
+  </div>
+  <div class="field">
+    <%= f.label :is_on_wed %><br>
+    <%= f.check_box :is_on_wed %>
+  </div>
+  <div class="field">
+    <%= f.label :thu_opening_time %><br>
+    <%= f.text_field :thu_opening_time %>
+  </div>
+  <div class="field">
+    <%= f.label :thu_closing_time %><br>
+    <%= f.text_field :thu_closing_time %>
+  </div>
+  <div class="field">
+    <%= f.label :is_on_thu %><br>
+    <%= f.check_box :is_on_thu %>
+  </div>
+  <div class="field">
+    <%= f.label :fri_opening_time %><br>
+    <%= f.text_field :fri_opening_time %>
+  </div>
+  <div class="field">
+    <%= f.label :fri_closing_time %><br>
+    <%= f.text_field :fri_closing_time %>
+  </div>
+  <div class="field">
+    <%= f.label :is_on_fri %><br>
+    <%= f.check_box :is_on_fri %>
+  </div>
+  <div class="field">
+    <%= f.label :sat_opening_time %><br>
+    <%= f.text_field :sat_opening_time %>
+  </div>
+  <div class="field">
+    <%= f.label :sat_closing_time %><br>
+    <%= f.text_field :sat_closing_time %>
+  </div>
+  <div class="field">
+    <%= f.label :is_on_sat %><br>
+    <%= f.check_box :is_on_sat %>
+  </div>
+  <div class="field">
+    <%= f.label :company_id %><br>
+    <%= f.number_field :company_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

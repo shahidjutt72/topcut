@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @service.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @service.description %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @service.cost %>
+</p>
+
+<p>
+  <strong>Service time:</strong>
+  <%= @service.service_time %>
+</p>
+
+<p>
+  <strong>Buffer time:</strong>
+  <%= @service.buffer_time %>
+</p>
+
+<p>
+  <strong>Show on calendar:</strong>
+  <%= @service.show_on_calendar %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @service.user_id %>
+</p>
+
+<p>
+  <strong>Image file name:</strong>
+  <%= @service.image_file_name %>
+</p>
+
+<p>
+  <strong>Image file size:</strong>
+  <%= @service.image_file_size %>
+</p>
+
+<p>
+  <strong>Image content type:</strong>
+  <%= @service.image_content_type %>
+</p>
+
+<%= link_to 'Edit', edit_service_path(@service) %> |
+<%= link_to 'Back', services_path %>
