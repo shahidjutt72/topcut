@@ -18,7 +18,7 @@ class AuthenticationsController < ApplicationController
        @user = User.find_by_email(omniauth['info']['email'])
        @user.authentications.build(:provider => provider, :u_id => omniauth['uid'])
        @user.skip_confirmation!
-       if @user.save
+       if @user.save(:validate=>false)
          flash[:notice] = "Signed in Successfully"
          sign_in(:user, @user)         
        end      
@@ -29,7 +29,7 @@ class AuthenticationsController < ApplicationController
         @user.email = omniauth['info']['email']                
       end
       @user.skip_confirmation!
-      if @user.save
+      if @user.save(:validate=>false)
         flash[:notice] = "Signed in Successfully"
         sign_in(:user, @user)        
       end      
