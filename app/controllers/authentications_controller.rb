@@ -10,35 +10,30 @@ class AuthenticationsController < ApplicationController
     end            
     if @authentication
       flash[:notice] = "Signed in Successfully"
-      sign_in(:user, @authentication.user)
-      redirect_to "/"
+      sign_in(:user, @authentication.user)      
     elsif current_user
       current_user.authentications.create!(:provider => provider, :u_id => u_id)
-      flash[:notice] = "Authentication successful."
-      redirect_to "/"
+      flash[:notice] = "Authentication successful."      
     elsif provider == 'facebook' and User.find_by_email(omniauth['info']['email'])
        @user = User.find_by_email(omniauth['info']['email'])
        @user.authentications.build(:provider => provider, :u_id => omniauth['uid'])
        @user.skip_confirmation!
        if @user.save
          flash[:notice] = "Signed in Successfully"
-         sign_in(:user, @user)
-         redirect_to "/"
-       end
+         sign_in(:user, @user)         
+       end      
     else
       @user = User.new
       @user.authentications.build(:provider => provider, :u_id => u_id)      
       if @provider == "facebook"
-        @user.email = omniauth['info']['email']
-        @user.name = omniauth['extra']['raw_info']['username']
-        @user.gender = omniauth['extra']['raw_info']['gender']
+        @user.email = omniauth['info']['email']                
       end
       @user.skip_confirmation!
       if @user.save
         flash[:notice] = "Signed in Successfully"
-        sign_in(:user, @user)
-        redirect_to "/"
-      end
+        sign_in(:user, @user)        
+      end      
     end
+    redirect_to "/"
   end  
 end
