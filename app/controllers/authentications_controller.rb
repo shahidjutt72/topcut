@@ -5,7 +5,7 @@ class AuthenticationsController < ApplicationController
     provider = omniauth['provider'].to_s
     
     u_id = omniauth['uid']
-    while( (@authentication = Authentication.find_by_provider_and_uid(provider, u_id)) and @authentication.user.nil?) do
+    while( (@authentication = Authentication.find_by_provider_and_u_id(provider, u_id)) and @authentication.user.nil?) do
       @authentication.destroy
     end            
     if @authentication
@@ -13,12 +13,12 @@ class AuthenticationsController < ApplicationController
       sign_in(:user, @authentication.user)
       redirect_to "/"
     elsif current_user
-      current_user.authentications.create!(:provider => provider, :uid => u_id)
+      current_user.authentications.create!(:provider => provider, :u_id => u_id)
       flash[:notice] = "Authentication successful."
       redirect_to "/"
     elsif provider == 'facebook' and User.find_by_email(omniauth['info']['email'])
        @user = User.find_by_email(omniauth['info']['email'])
-       @user.authentications.build(:provider => provider, :uid => omniauth['uid'])
+       @user.authentications.build(:provider => provider, :u_id => omniauth['uid'])
        @user.skip_confirmation!
        if @user.save
          flash[:notice] = "Signed in Successfully"
@@ -27,7 +27,7 @@ class AuthenticationsController < ApplicationController
        end
     else
       @user = User.new
-      @user.authentications.build(:provider => provider, :uid => u_id)      
+      @user.authentications.build(:provider => provider, :u_id => u_id)      
       if @provider == "facebook"
         @user.email = omniauth['info']['email']
         @user.name = omniauth['extra']['raw_info']['username']
