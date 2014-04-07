@@ -8,8 +8,10 @@
 	%body
 		-if current_user
 			= link_to "Sign Out", "/users/sign_out"
-		-else
-			= link_to "Sign In From Facebook", "/auth/facebook"
+		-else			
+			-#= link_to "Sign In From Facebook", "/auth/facebook"
+			%a{:href =>"/auth/facebook"}
+				%img{:src =>"/assets/sign_in_from_fb.png", :width => "190"}
 			%br
 			= link_to "Sign In", "/users/sign_in"
 			%br
