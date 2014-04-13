@@ -1,6 +1,6 @@
 class StaffsController < ApplicationController
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
-
+  before_filter :login_necessary
   # GET /staffs
   # GET /staffs.json
   def index
@@ -65,6 +65,12 @@ class StaffsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_staff
       @staff = Staff.find(params[:id])
+    end
+
+    def login_necessary
+      if !current_user
+        redirect_to "/", :notice =>"Please sign in first!"
+      end  
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

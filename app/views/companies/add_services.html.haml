@@ -1,0 +1,64 @@
+= form_for(@company) do |f|
+  - if @company.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@company.errors.count, "error")
+        prohibited this company from being saved:
+      %ul
+        - @company.errors.full_messages.each do |msg|
+          %li= msg  
+  -if @services.length == 0
+    -@services = @company.services.build
+  = hidden_field_tag "from_services_page", true
+  = f.fields_for :services do |ser|
+    %table
+      %thead
+        %tr
+          %th 
+          %th 
+          %th           
+      %tbody
+        
+        .main_staff
+          %tr
+            %td          
+              .field
+                = ser.label :service_name
+                %br/
+                = ser.text_field :name
+            %td
+              .field
+                = ser.label :service_time_mins
+                %br/
+                = ser.text_field :service_time
+            %td
+              .field
+                = ser.label :cost
+                %br/
+                = ser.text_field :cost
+            %td
+              .field
+                -@company.staffs.each do |staff|                
+                  = check_box_tag "service[staff_ids][]", staff.id, ser.object.staff_ids ? ser.object.staff_ids.include?(staff.id) : false 
+                  = staff.name
+            
+  .more_urls
+  .actions
+    = link_to "Add More", "#", :class =>"add_more_button"
+    = hidden_field_tag "loop_value", "#{@company.services.length}"
+    = f.submit "Add Services"
+
+:javascript
+  
+  $('.add_more_button').click(function(event){
+    var len;
+    len = $('#loop_value').val();
+    if(len == 0){
+    len = 1;
+    }
+    $('tr').last().parent().append('<tr><td><label for="text_field">Service Name</label><div><input id="company_services_attributes_'+len+'_name" name="company[services_attributes]['+len+'][name]" type="text"></td><td><label for="text_field">Service time mins</label><div><input id="company_services_attributes_'+len+'_service_time" name="company[services_attributes]['+len+'][service_time]" type="text"></div></td><td><label for="text_field">Cost</label><div><input id="company_services_attributes_'+len+'_cost" name="company[services_attributes]['+len+'][cost]" type="text"></div></td></tr><br/>');
+    len_2 = parseInt(len);
+    len_2 = len_2 + 1;
+    $('#loop_value').val(len_2);
+    event.preventDefault();
+  });    

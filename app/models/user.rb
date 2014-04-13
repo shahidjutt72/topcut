@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :authentications
+  has_one :company
   def admin_or_not
   	if self.is_admin
   		'Admin User'

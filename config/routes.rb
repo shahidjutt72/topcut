@@ -1,7 +1,12 @@
 Topcut::Application.routes.draw do
   resources :timings
 
-  resources :companies
+  resources :companies do
+    member do
+      get 'add_staff'
+      get 'add_services'
+    end  
+  end  
 
   resources :customers
 

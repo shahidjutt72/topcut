@@ -17,12 +17,11 @@
   </div>
   <div class="field">
     <%= f.label :business_type %><br>
-    <%= f.text_field :business_type %>
+    <%= f.select :business_type, options_for_select([["Computers/Technology"],["Consulting/Business Services"],["Church/Religious Organization"],["Education"],["Hair Salon"],["Law Office"],["Health/Beauty"],["Health/Medical/Pharmaceuticals"],["Outdoor Gear/Sporting Goods"]], f.object.business_type),{} %>
   </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
+  <%= f.fields_for :timing, @timing do |time|%>
+    <%= render :partial =>"timings/form", :locals =>{:f => time}%>
+  <%end%>
   <div class="actions">
     <%= f.submit %>
   </div>

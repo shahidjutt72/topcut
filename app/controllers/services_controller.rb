@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
-
+  before_filter :login_necessary
   # GET /services
   # GET /services.json
   def index
@@ -67,6 +67,11 @@ class ServicesController < ApplicationController
       @service = Service.find(params[:id])
     end
 
+    def login_necessary
+      if !current_user
+        redirect_to "/", :notice =>"Please sign in first!"
+      end  
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
       params.require(:service).permit(:name, :description, :cost, :service_time, :buffer_time, :show_on_calendar, :user_id, :image_file_name, :image_file_size, :image_content_type)

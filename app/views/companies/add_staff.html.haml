@@ -1,0 +1,58 @@
+= form_for(@company) do |f|
+  - if @company.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@company.errors.count, "error")
+        prohibited this company from being saved:
+      %ul
+        - @company.errors.full_messages.each do |msg|
+          %li= msg  
+  -if @staff.length == 0
+    -@staff = @company.staffs.build
+  = hidden_field_tag "from_staff_page", true
+  = f.fields_for :staffs do |staff|
+    %table
+      %thead
+        %tr
+          %th 
+          %th 
+          %th           
+      %tbody
+        
+        .main_staff
+          %tr
+            %td          
+              .field
+                = staff.label :name
+                %br/
+                = staff.text_field :name
+            %td
+              .field
+                = staff.label :email
+                %br/
+                = staff.text_field :email
+            %td
+              .field
+                = staff.label :phone
+                %br/
+                = staff.text_field :phone
+  .more_urls
+  .actions
+    = link_to "Add More", "#", :class =>"add_more_button"
+    = hidden_field_tag "loop_value", "#{@company.staffs.length}"
+    = f.submit "Add Staffs"
+
+:javascript
+  
+  $('.add_more_button').click(function(event){
+    var len;
+    len = $('#loop_value').val();
+    if(len == 0){
+    len = 1;
+    }
+    $('tr').last().parent().append('<tr><td><label for="text_field">Name</label><div><input id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" type="text"></div></td><td><label for="text_field">Email</label><div><input id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" type="text"></div></td><td><label for="text_field">Phone</label><div><input id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" type="text"></div></td></tr><br/>');
+    len_2 = parseInt(len);
+    len_2 = len_2 + 1;
+    $('#loop_value').val(len_2);
+    event.preventDefault();
+  });    

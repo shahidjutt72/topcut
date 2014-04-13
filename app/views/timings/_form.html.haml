@@ -1,0 +1,49 @@
+%table
+  %thead
+    %tr
+      %th 
+      %th 
+      %th 
+      %th        
+  %tbody
+    -[["Monday","mon"],["Tuesday","tue"],["Wednesday","wed"],["Thursday","thu"],["Friday","fri"],["Saturday","sat"],["Sunday","sun"]].each do |day|
+      %tr{:class =>"main_days_cls"}
+        %td= day[0]
+        %td           
+          .field
+            = f.label :open
+            
+            = eval("f.radio_button :is_on_#{day[1]}, true, :class =>'days_on'")                        
+            = f.label :closed
+            
+            = eval("f.radio_button :is_on_#{day[1]}, false, :class =>'days_on days_on_single'")
+        %td    
+          .field                            
+            = eval("f.select :#{day[1]}_opening_time, options_for_select([['1 AM'],['2 AM'],['3 AM'],['4 AM'],['5 AM'],['6 AM'],['7 AM'],['8 AM'],['9 AM'],['10 AM'],['11 AM'],['12 PM'],['1 PM'],['2 PM'],['3 PM'],['4 PM'],['5 PM'],['6 PM'],['7 PM'],['8 PM'],['9 PM'],['10 PM'],['11 PM'],['12 AM']],f.object.#{day[1]}_opening_time),{}, :class =>'start_end_time'")            
+            to
+        %td  
+          .field              
+            = eval("f.select :#{day[1]}_closing_time, options_for_select([['1 AM'],['2 AM'],['3 AM'],['4 AM'],['5 AM'],['6 AM'],['7 AM'],['8 AM'],['9 AM'],['10 AM'],['11 AM'],['12 PM'],['1 PM'],['2 PM'],['3 PM'],['4 PM'],['5 PM'],['6 PM'],['7 PM'],['8 PM'],['9 PM'],['10 PM'],['11 PM'],['12 AM']],f.object.#{day[1]}_closing_time),{}, :class =>'start_end_time'")            
+:javascript
+  $('.days_on').change(function(e){
+    if($(this).val() == "true"){
+      $(this).parents('.main_days_cls').find('.start_end_time').attr('disabled',false)
+    }
+    else{
+      $(this).parents('.main_days_cls').find('.start_end_time').attr('disabled',true)
+    }
+  })
+  $(document).ready(function(){
+    $('.days_on_single').each(function(indx,elem){
+    
+    if($(elem).is(':checked')){
+      $(elem).parents('.main_days_cls').find('.start_end_time').attr('disabled',true)
+      
+    }
+    else{
+      $(elem).parents('.main_days_cls').find('.start_end_time').attr('disabled',false)
+      
+    }
+  });
+  })
+  

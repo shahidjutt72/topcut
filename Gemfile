@@ -6,7 +6,7 @@ gem 'rails', '4.0.2'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 # gem 'sqlite3'
-
+gem 'debugger'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'haml'
@@ -32,7 +32,7 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
-
+# gem 'protected_attributes'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
