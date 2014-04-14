@@ -40,7 +40,7 @@ class CompaniesController < ApplicationController
     @company = current_user.build_company(company_params)    
     respond_to do |format|
       if @company.save
-        format.html { redirect_to new_staff_path, notice: 'Company was successfully created.' }
+        format.html { redirect_to add_services_company_path(@company), notice: 'Company was successfully created.' }
         format.json { render action: 'show', status: :created, location: @company }
       else
         format.html { render action: 'new' }
