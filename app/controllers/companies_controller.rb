@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy,:add_staff,:add_services]
-  before_filter :login_necessary
+  # before_filter :login_necessary
 
   # GET /companies
   # GET /companies.json
@@ -85,7 +85,8 @@ class CompaniesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_company
       # @company = Company.find(params[:id])
-      @company = params[:id] ? Company.find(params[:id]) : Company.find_by_name(company_subdomain)
+      company_subdomain = request.subdomains.first
+      @company = params[:id] ? Company.find(params[:id]) : company_subdomain ? Company.find_by_name(company_subdomain) : Company.first
     end
 
     def login_necessary
