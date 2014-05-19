@@ -8,6 +8,16 @@
 	%body
 		-if current_user
 			= link_to "Sign Out", "/users/sign_out"
+			-if current_user and current_user.company
+				= link_to "calendar", root_path
+				|
+				= link_to "customers", customers_path
+				|
+				= link_to "Setting", settings_path
+				|
+				= link_to "Profile", profile_users_path
+				|
+				= link_to current_user.company.name, root_url(:subdomain => current_user.company.name)
 		-else			
 			-#= link_to "Sign In From Facebook", "/auth/facebook"
 			%a{:href =>"/auth/facebook"}
