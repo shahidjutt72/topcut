@@ -8,7 +8,11 @@ Topcut::Application.routes.draw do
     end  
   end  
 
-  resources :customers
+  resources :customers do
+    member do
+      get 'update_attributes'
+    end
+  end  
 
   resources :services
 

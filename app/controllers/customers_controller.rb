@@ -1,10 +1,11 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy,:update_attributes]
 
   # GET /customers
   # GET /customers.json
   def index
     @customers = Customer.all
+    @customer = @customers.first
   end
 
   # GET /customers/1
@@ -41,6 +42,7 @@ class CustomersController < ApplicationController
   # PATCH/PUT /customers/1
   # PATCH/PUT /customers/1.json
   def update
+    
     respond_to do |format|
       if @customer.update(customer_params)
         format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
@@ -50,6 +52,14 @@ class CustomersController < ApplicationController
         format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def update_attributes    
+    value = params[:value]
+    field_name = params[:field_name]
+    eval("@customer.#{field_name}='#{value}'")
+    @customer.save
+    render :text => true
   end
 
   # DELETE /customers/1
@@ -70,6 +80,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:name, :email, :mobile_phone, :office_phone, :home_phone, :address, :city, :state, :zip, :ountry, :user_id)
+      params.require(:customer).permit(:name, :email, :mobile_phone, :office_phone, :home_phone, :address, :city, :state, :zip, :ountry, :user_id, :notes)
     end
 end

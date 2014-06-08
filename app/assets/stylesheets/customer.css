@@ -47,7 +47,7 @@ input[type="text"], textarea {
 }
 
 .form-horizontal .control-group:first-child {
-    border-bottom: 1px solid #C5C5C5;
+    /*border-bottom: 1px solid #C5C5C5;*/
     margin-bottom: 25px !important;
     padding: 10px 0;
 }
@@ -111,4 +111,13 @@ input[type="text"], textarea {
 
 .media-body p, .media-body a {
     color: #ACBFD2;
+}
+.tab-pane
+{
+  display: none !important;
+}
+
+.active
+{
+  display: block !important;
 }
