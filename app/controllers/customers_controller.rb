@@ -24,10 +24,11 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
-    @customer = Customer.new(customer_params)
+    # @customer = Customer.new(customer_params)
+    @customer = Customer.find_or_create_by_email_and_mobile_phone(customer_params[:email],customer_params[:mobile_phone])
 
     respond_to do |format|
-      if @customer.save
+      if @customer.update_attributes(customer_params)
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render action: 'show', status: :created, location: @customer }
       else

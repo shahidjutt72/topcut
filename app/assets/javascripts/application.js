@@ -13,3 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery-1.7.2.min
+//= require jquery-ui.min
+//= require jquery.weekcalendar
+//= require bootstrap
+//= require jquery.onepage-scroll
+//= require validation

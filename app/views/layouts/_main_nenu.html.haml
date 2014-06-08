@@ -1,0 +1,40 @@
+.navbar-fixed-top.navbar{:style =>"#{current_user ? '' : 'margin-bottom: -75px;'}"}
+	.navbar-inner
+		.container-fluid.head-padded
+			%a{:href => root_path, :class =>"logo"}
+				%i.fa.fa-joomla
+			%button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", type: "button"}
+				%span.icon-bar
+				%span.icon-bar
+				%span.icon-bar
+			.nav-collapse.collapse.pull-right
+				-if current_user
+					%ul.nav
+						%li
+							= link_to "Sign Out", "/users/sign_out"
+						-if current_user and current_user.company
+							%li{:class =>"#{params[:controller] == 'home' ? 'active' : ''}"}
+								= link_to "calendar", root_path														
+							%li{:class =>"#{params[:controller] == 'customers' ? 'active' : ''}"}
+								= link_to "customers", customers_path
+							
+							%li
+								= link_to "Setting", settings_path
+							
+							-#%li
+							-#= link_to "Profile", profile_users_path
+							
+							-#%li
+							-#= link_to current_user.company.name, root_url(:subdomain => current_user.company.name)
+				-else							
+					%span{:class =>"sign_in_class"}
+						%a#btn-signin.btn-text.pull-right{"data-placement" => "bottom", "data-toggle" => "popover"}
+							Signin or Login 
+							%i.fa.fa-user
+					%ul.nav
+						%li.active
+							%a{"data-index" => "1", href: "#1"} Home
+						%li
+							%a{"data-index" => "2", href: "#2"} Features
+						%li
+							%a#btn-signup{"data-placement" => "bottom", "data-toggle" => "popover"} Signup			

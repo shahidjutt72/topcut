@@ -10,4 +10,10 @@
  *
  *= require_self
  *= require_tree .
+ *= require bootstrap
+ *= require bootstrap-responsive
+ *= requirefont-awesome
+ *= require theme
+ *= require onepage-scroll
+ *= require main
  */

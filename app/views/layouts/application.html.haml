@@ -1,33 +1,89 @@
 !!!
 %html
 	%head
-		%title Topcut
-		= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
-		= javascript_include_tag "application", "data-turbolinks-track" => true
-		= csrf_meta_tags
-	%body
-		-if current_user
-			= link_to "Sign Out", "/users/sign_out"
-			-if current_user and current_user.company
-				= link_to "calendar", root_path
-				|
-				= link_to "customers", customers_path
-				|
-				= link_to "Setting", settings_path
-				|
-				= link_to "Profile", profile_users_path
-				|
-				= link_to current_user.company.name, root_url(:subdomain => current_user.company.name)
-		-else			
-			-#= link_to "Sign In From Facebook", "/auth/facebook"
-			%a{:href =>"/auth/facebook"}
-				%img{:src =>"/assets/sign_in_from_fb.png", :width => "190"}
-			%br
-			= link_to "Sign In", "/users/sign_in"
-			%br
-			= link_to "Sign Up", "/users/sign_up"
+		%title ServeU - we'r here to serve you
 		
-		- if notice
-			%br
-			= notice  
+		= javascript_include_tag "application", "data-turbolinks-track" => true
+		= csrf_meta_tags		
+		= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+	%body
+		-if !current_user
+			#signin_header{style: "display: none"}
+				%h3.text-center Sign In!
+				%p.small Get a free account in 30 seconds. No credit card required. Sign in quick with your social login click on social buttons below
+			#signup_header{style: "display: none"}
+				%h3.text-center SignUp Free!
+				%p.small Get a free account in 30 seconds. No credit card required. Sign in quick with your social login click on social buttons below	
+			#signin_popup{style: "display: none"}
+				= form_for(User.new, :url => user_session_path, :html =>{:class =>"sign_in_form"}) do |f|
+					.signin.text-center
+						= f.email_field :email,:placeholder => "Email", :required => "required"
+						= f.password_field :password,:placeholder => "Password", :required => "required"			
+						= f.submit "sign in", :class => "sign_in_button btn-text"
+						-#%a.btn-text{href: "#", :class =>"sign_in_button"} Sign In
+			#signup_popup{style: "display: none"}
+				= form_for(User.new, :url => user_registration_path, :html =>{:class =>"sign_up_form"}) do |f|
+					.signin.text-center
+						= f.email_field :email,:placeholder => "Email", :required => "required"
+						= f.password_field :password,:placeholder => "Password", :required => "required"			
+						= f.password_field :password_confirmation,:placeholder => "Password Confirmation", :required => "required"			
+						= f.submit "sign Up", :class => "sign_up_button btn-text"
+						-#%a.btn-text{href: "#", :class =>"sign_up_button"} SignUp
+		= render :partial => "layouts/main_nenu"
+		
+		%input#for_notice.notice_value{name: "for_notice", type: "hidden", :value => notice}/
+		#noticeModal.modal.fade.message_box{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", style: "display:none;", tabindex: "-1"}
+			.modal-dialog
+				.modal-content
+					.terms_content
+						.terms_top_row
+							.message.for_putting_notice
+							.clear
+						.ok_button_row.for_close_button
+							.login_button.for_hide_message
+								%a.pink_button{href: "#"}
+									OK		
 		= yield
+:javascript
+	$(document).ready(function(){
+		$('.for_hide_message').click(function(e){
+			$('#noticeModal').modal('hide');
+			$('#ageModal').modal('hide');
+			e.preventDefault();  
+		});
+		note=$('.notice_value').val();    
+		if(note && note!=""){
+			$('#noticeModal').modal('show');
+			$('.for_putting_notice').html(note); 
+		}
+	});
+	function sign_up_validations(){
+		$(".sign_up_form").each(function(indx,elem){
+		$(elem).validate({
+		 rules :{
+			 "user[email]":{
+				 required: true,
+				 email: true
+			 },
+			 "user[password]":{
+				 required: true,
+				 minlength: 8
+			 },
+			 "user[password_confirmation]":{
+				 required: true,
+				 minlength: 8,
+				 equalTo: $(elem).find('#user_password')
+			 }
+		 },
+		 messages: {
+
+		 },
+		 submithandler: function(form)
+		 {
+			form.submit();
+		 }
+		});
+	});
+	}
+	sign_up_validations();
+					

@@ -1,0 +1,119 @@
+-#.push
+.padded-none.container-fluid
+  .row-fluid
+    .span3
+      %section.side
+        %header
+          %h3 
+            Customers
+            %button.btn.btn-success.pull-right
+              %i.fa.fa-plus>
+              \  Add New
+          %input.input-block-level{placeholder: "Search Customer...", type: "text"}/
+        .side-content
+          %ul.media-list
+            %li.media
+              %a.pull-left{href: "#"}
+                %img.img-circle{src: "/assets/customer.png"}/
+              .media-body
+                %a.pull-right
+                  %i.fa.fa-times
+                %h4.media-heading Asif Farooq
+                %p Faisalabad, Pakistan
+            %li.media
+              %a.pull-left{href: "#"}
+                %img.img-circle{src: "/assets/customer.png"}/
+              .media-body
+                %a.pull-right
+                  %i.fa.fa-times
+                %h4.media-heading Atif Farooq
+                %p Faisalabad, Pakistan
+            %li.media
+              %a.pull-left{href: "#"}
+                %img.img-circle{src: "/assets/customer.png"}/
+              .media-body
+                %a.pull-right
+                  %i.fa.fa-times
+                %h4.media-heading Kashif Farooq
+                %p Faisalabad, Pakistan
+            %li.media
+              %a.pull-left{href: "#"}
+                %img.img-circle{src: "/assets/customer.png"}/
+              .media-body
+                %a.pull-right
+                  %i.fa.fa-times
+                %h4.media-heading Wasif Farooq
+                %p Faisalabad, Pakistan
+    .span9.content
+      .container-fluid
+        .row-fluid
+          .span10
+            .tab-content
+              #customer.tab-pane.active
+                %form.form-horizontal
+                  .control-group
+                    %label.control-label{for: "inputEmail"}
+                      %img{src: "/assets/customer.png", width: "60%"}/
+                    .controls
+                      %input#inputName{placeholder: "Name", type: "text"}/                      
+                  .control-group
+                    %label.control-label{for: "inputEmail"} Email
+                    .controls
+                      %input#inputEmail{placeholder: "Email", type: "text"}/
+                  .control-group
+                    %label.control-label{for: "inputMobile"} Mobile
+                    .controls
+                      %input#inputMobile{placeholder: "Mobile", type: "text"}/
+                  .control-group
+                    %label.control-label{for: "inputOffice"} Office
+                    .controls
+                      %input#inputOffice{placeholder: "Phone", type: "text"}/
+                  .control-group
+                    %label.control-label{for: "inputHome"} Home
+                    .controls
+                      %input#inputHome{placeholder: "Phone", type: "text"}/
+                  .control-group
+                    %label.control-label{for: "inputAddress"} Address
+                    .controls
+                      %textarea#inputAddress{placeholder: "Address", rows: "6"}
+                  .control-group
+                    %label.control-label{for: "inputCity"} City
+                    .controls
+                      %input#inputCity{placeholder: "City", type: "text"}/
+                  .control-group
+                    %label.control-label{for: "inputState"} State
+                    .controls
+                      %input#inputState{placeholder: "State", type: "text"}/
+                  .control-group
+                    %label.control-label{for: "inputZip"} Zip
+                    .controls
+                      %input#inputZip{placeholder: "Zip", type: "text"}/
+              #appointments.tab-pane Appointmet Tab.
+              #notes.tab-pane
+                %form.form-horizontal
+                  .control-group
+                    %label.control-label{for: "inputEmail"}
+                      %img{src: "/assets/customer.png", width: "60%"}/
+                    .controls
+                      %input#inputTemp{placeholder: "Name", type: "text"}/
+                      %button.btn.btn-success.pull-right
+                        %i.fa.fa-plus>
+                        \  Add New
+                  .control-group
+                    %label.control-label{for: "inputNote"} Note
+                    .controls
+                      %textarea#inputNote{placeholder: "Please type note,note should be less then 256 characters", rows: "15"}
+          .span2.left-1
+            %ul.nav.nav-tabs.tabs-right
+              %li.active
+                %a{"data-toggle" => "tab", href: "#customer"}
+                  %i.fa.fa-users.tab-big>
+                  \  Customer
+              %li
+                %a{"data-toggle" => "tab", href: "#appointments"}
+                  %i.fa.fa-calendar.tab-big>
+                  \  Appointments
+              %li
+                %a{"data-toggle" => "tab", href: "#notes"}
+                  %i.fa.fa-paper-plane.tab-big>
+                  \  Notes

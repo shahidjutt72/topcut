@@ -6,11 +6,19 @@ gem 'rails', '4.0.2'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 # gem 'sqlite3'
+gem 'clickatell'
+# require 'rubygems'
+# require 'clickatell'
+
+# api = Clickatell::API.authenticate('your_api_id', 'your_username', 'your_password')
+# api.send_message('447771234567', 'Hello from clickatell')
+# for sending the customize content we will have to buy the credits.
 gem 'debugger'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'haml'
 gem 'devise'
+gem 'twilio-ruby'
 gem 'active_scaffold', github: 'activescaffold/active_scaffold', branch: 'master'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

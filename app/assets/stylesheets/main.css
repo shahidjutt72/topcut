@@ -1,0 +1,196 @@
+﻿@font-face {
+    font-family: "Oswald Light";
+    src: url("/fonts/oswald-light/Oswald-Light.eot?") format("eot"),url("/fonts/oswald-light/Oswald-Light.woff") format("woff"),url("/fonts/oswald-light/Oswald-Light.ttf") format("truetype"),url("/fonts/oswald-light/Oswald-Light.svg#Oswald-Light") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Oswald Bold";
+    src: url("/fonts/oswald-bold/Oswald-Bold.eot?") format("eot"),url("/fonts/oswald-bold/Oswald-Bold.woff") format("woff"),url("/fonts/oswald-bold/Oswald-Bold.ttf") format("truetype"),url("/fonts/oswald-bold/Oswald-Bold.svg#Oswald-Bold") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@keyframes animatedBackground {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -300px 0;
+    }
+}
+
+@-moz-keyframes animatedBackground {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -300px 0;
+    }
+}
+
+@-webkit-keyframes animatedBackground {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -300px 0;
+    }
+}
+
+@-ms-keyframes animatedBackground {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -300px 0;
+    }
+}
+
+
+html {
+    width: 100%;
+    height: 100%;
+    /*background-image: url(../assets/bg.jpg);*/
+    background-position: 0px 0px;
+    background-size: cover;
+    animation: animatedBackground 10s linear infinite;
+    -moz-animation: animatedBackground 10s linear infinite;
+    -webkit-animation: animatedBackground 10s linear infinite;
+    -ms-animation: animatedBackground 10s linear infinite;
+    -o-animation: animatedBackground 10s linear infinite;
+}
+
+#main {
+    top: 77px;
+}
+
+section > .row-fluid:first-child {
+    box-shadow: 0 0 200px #000000;
+}
+
+.slider-inner {
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzc5OGRiNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiZWQ0ZTUiIHN0b3Atb3BhY2l0eT0iMCIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(left, rgba(121,141,181,1) 0%, rgba(190,212,229,0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(121,141,181,1)), color-stop(100%,rgba(190,212,229,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, rgba(121,141,181,1) 0%,rgba(190,212,229,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, rgba(121,141,181,1) 0%,rgba(190,212,229,0) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, rgba(121,141,181,1) 0%,rgba(190,212,229,0) 100%); /* IE10+ */
+    background: linear-gradient(to right, rgba(121,141,181,1) 0%,rgba(190,212,229,0) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#798db5', endColorstr='#00bed4e5',GradientType=1 ); /* IE6-8 */
+    padding: 35px 10px;
+}
+
+    .slider-inner .sepration {
+        /*border-left: 1px solid #677CA5;
+        box-shadow: -1px 0 0 #98ADD6;*/
+    }
+
+    .slider-inner .section {
+        padding: 10px 60px;
+    }
+
+    .slider-inner h1 {
+        color: #ffffff;
+        font-family: 'Oswald Bold';
+        font-size: 3em;
+        line-height: 70px;
+        /*text-shadow: 0 -5px 2px #6B6B6B;*/
+    }
+
+    .slider-inner h3 {
+        color: #F0F0F0;
+        font-family: 'Oswald Light';
+        font-size: 4em;
+        line-height: 70px;
+        /*text-shadow: 0 -5px 2px #6B6B6B;*/
+    }
+
+    .slider-inner p {
+        color: #F0F0F0;
+        font-family: Calibri;
+        font-size: 1.35em;
+        text-shadow: 0 1px 1px #6B6B6B;
+    }
+
+    .slider-inner img {
+        width: 100%;
+        margin: 20px auto;
+    }
+
+section .row-fluid > footer {
+    text-align: center;
+    padding: 0;
+}
+
+.padded-none {
+    padding: 0;
+}
+
+.second {
+    text-align: center;
+    padding: 30px;
+    color: #A8A8A7;
+    border-bottom: 1px solid #DADADA;
+    background: #ECECEC;
+}
+
+    .second div.circle {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 10px solid #7E93BC;
+        border-radius: 500px;
+        height: 150px;
+        margin: 0 auto 25px;
+        width: 150px;
+    }
+
+        .second div.circle > i {
+            color: #E7E9E9;
+            line-height: 1.8;
+            font-size: 6em;
+        }
+
+    .second .circle-head {
+        font-size: 3em;
+        font-family: 'Oswald Bold';
+        color: #7E93BC;
+        display: inline-block;
+    }
+
+        .second .circle-head + label {
+            font-size: 3em;
+            font-family: 'Oswald Bold';
+            color: #939898;
+            display: inline-block;
+        }
+
+    .second p {
+        padding: 10px 30px 0;
+    }
+
+.third {
+    text-align: center;
+    padding: 30px;
+    color: #ffffff;
+    border-bottom: 1px solid #00A44E;
+    background: #00CA74;
+}
+
+.transparent {
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
+.small {
+    font-size: 0.8em;
+    text-align: center;
+    color: #A8A8A7;
+}

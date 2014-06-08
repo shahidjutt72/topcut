@@ -1,0 +1,114 @@
+body {
+    background: #F1F5F7 !important;
+}
+
+input[type="text"], textarea {
+    border-radius: 0 !important;
+    padding: 0 6px !important;
+    min-height: 28px;
+}
+
+.form-horizontal .control-group {
+    margin-bottom: 5px !important;
+}
+
+.side {
+    padding: 20px;
+    background: #F1F5F7;
+    min-height: 500px;
+}
+
+    .side > header {
+        border-bottom: 1px solid #C5C5C5;
+        box-shadow: 0 1px 1px #FFFFFF;
+    }
+
+    .side h3 {
+        color: #808080;
+        font-family: Calibri;
+        font-weight: lighter;
+        padding: 5px 0;
+    }
+
+.content {
+    min-height: 603px !important;
+}
+
+    .content > .container-fluid > .row-fluid > .span10 {
+        border: 1px solid #dddddd;
+    }
+
+.side-content {
+    margin: 10px 0;
+}
+
+.padded-none {
+    padding: 0 !important;
+}
+
+.form-horizontal .control-group:first-child {
+    border-bottom: 1px solid #C5C5C5;
+    margin-bottom: 25px !important;
+    padding: 10px 0;
+}
+
+.control-group .controls > #inputName, .control-group .controls > #inputTemp, .controls > button {
+    margin-top: 40px;
+}
+
+.form-horizontal .control-label {
+    float: left;
+    font-family: calibri;
+    font-size: 17px;
+    padding-top: 5px;
+    text-align: right;
+    width: 160px;
+    color: #808080;
+}
+
+.controls > input, .controls > textarea {
+    width: 265px;
+}
+
+.left-1 {
+    margin-left: -1px !important;
+}
+
+.tab-pane {
+    min-height: 100%;
+}
+
+.tab-content {
+    min-height: 540px;
+}
+
+.tab-big {
+    display: block;
+    font-size: 2em;
+}
+
+.media a > img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 2px solid #96A9BC;
+    height: 30px;
+    padding: 5px;
+    width: 30px;
+}
+
+.media-list {
+    list-style: none outside none;
+    margin: 20px 5px !important;
+}
+
+.media-heading {
+    color: #96A9BC;
+    font-family: calibri;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px #fff;
+    font-weight: lighter;
+    margin: 0;
+}
+
+.media-body p, .media-body a {
+    color: #ACBFD2;
+}
