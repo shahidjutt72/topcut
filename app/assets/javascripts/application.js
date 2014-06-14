@@ -19,3 +19,5 @@
 //= require bootstrap
 //= require jquery.onepage-scroll
 //= require validation
+//= require select
+//= require bootstrap-timepicker

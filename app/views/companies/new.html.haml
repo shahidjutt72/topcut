@@ -1,0 +1,165 @@
+%link{:href =>"/assets/wizard.css", :rel =>"stylesheet"}
+/ = render 'form'
+/ .push
+.push
+.container-fluid
+	.row-fluid
+		.span7.sepration
+			.row-fluid
+				.xtra-padded
+					.circle.pull-left.active.company_first_step_main
+						%i.fa.fa-child.fa-3x
+					.circle.pull-left.company_second_step_main
+						%i.fa.fa-clock-o.fa-3x
+					.circle.pull-left
+						%i.fa.fa-users.fa-3x
+					.circle.pull-left
+						%i.fa.fa-gears.fa-3x
+					.circle.pull-left
+						%i.fa.fa-flag.fa-3x
+			.container-fluid.xtra-padded
+				.arrow-up
+				%section.welcome.section.company_first_step
+					%header
+						%h1
+							Welcome to ServeU
+							%br/
+							we're glad you're here
+						%p Setup only takes a moment, we'll get you making appointments in no time.
+					.container-fluid
+						= form_for(@company) do |f|
+							.row-fluid							
+								= f.text_field :name, :class =>"input input-large", :placeholder => "Company Name..."
+								= f.hidden_field :business_type
+								.btn-group.btn-info
+									%button.btn.btn-info.ddl_txt Type
+									%button.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
+										%span.caret
+									%ul.dropdown-menu
+										/ dropdown menu links
+										-["Computers/Technology","Consulting/Business Services","Church/Religious Organization","Education","Hair Salon","Law Office","Health/Beauty","Health/Medical/Pharmaceuticals","Outdoor Gear/Sporting Goods"].each do |cat|
+											%li
+												%a #{cat}
+
+						.row-fluid
+							%a.animateBtn.top10{href: "#", :class =>"submit_company"}
+								%img.default{alt: "Settings", src: "/assets/go.png"}/
+								%span.animateBtn-text Let's Go
+				%section.hours.section.hide.company_second_step
+					%header
+						%h1 Business Hours
+						%p To edit settings or staff & services just goto settings tab.
+					.container-fluid
+						.row-fluid
+							.span4.day
+								%a Mon
+								%input.timepicker.input-small{type: "text"}/
+								%input.timepicker.input-small{type: "text"}/
+							.span4.day
+								%a Tue
+								%input.timepicker.input-small{type: "text"}/
+								%input.timepicker.input-small{type: "text"}/
+							.span4.day
+								%a Wed
+								%input.timepicker.input-small{type: "text"}/
+								%input.timepicker.input-small{type: "text"}/
+						.row-fluid
+							.span4.day
+								%a Thu
+								%input.timepicker.input-small{type: "text"}/
+								%input.timepicker.input-small{type: "text"}/
+							.span4.day
+								%a Fri
+								%input.timepicker.input-small{type: "text"}/
+								%input.timepicker.input-small{type: "text"}/
+							.span4.day
+								%a Sat
+								%input.timepicker.input-small{type: "text"}/
+								%input.timepicker.input-small{type: "text"}/
+				%section.staff.section.hide
+					%header
+						%h1 Staff Members
+						%p Each person you add will get their very own schedule created just for them.
+					.container-fluid
+						.row-fluid
+							.span4
+								%input.input.input-block-level{placeholder: "Name", type: "text"}/
+							.span3
+								%input.input.input-block-level{placeholder: "Email", type: "text"}/
+							.span3
+								%input.input.input-block-level{placeholder: "Phone", type: "text"}/
+							.span2
+								%button.btn.btn-block.btn-success
+									%i.fa.fa-plus>
+									\ Add
+				%section.services.section.hide
+					%header
+						%h1 Your Services
+						%p Add the services that your staff perform (i.e. Massage, Pedicure, Facials).
+					.container-fluid
+						.row-fluid
+							.span4
+								%input.input.input-block-level{placeholder: "Service Name", type: "text"}/
+							.span2
+								%input.input.input-block-level{placeholder: "0 mins", type: "text"}/
+							.span2
+								%input.input.input-block-level{placeholder: "$ 0", type: "text"}/
+							.span2
+								.btn-block.btn-group
+									%button.btn.btn-info
+										%i.fa.fa-user
+									%button.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
+										%span.caret
+									%ul.dropdown-menu
+										%li
+											%a{href: "#"} All
+							.span2
+								%button.btn.btn-block.btn-success
+									%i.fa.fa-plus>
+									\ Add
+				%section.done.section.hide
+					%header
+						%h1
+							You are all done
+							%br/
+							my friend!
+						%p To edit settings or staff & services just goto settings tab.
+					.input-append-list
+						%a.animateBtn.top10{href: "#"}
+							%img.default{alt: "Settings", src: "/assets/run.png"}/
+							%span.animateBtn-text Let's Start
+		.span5
+			%img.details-img{src: "/assets/bg_1.png"}/
+			%p.details ServU helps you manage appointments, schedules and customers, all through an easy to use web application. ServU helps you manage appointments, schedules and customers, all through an easy to use web application.
+:javascript
+	$(document).ready(function () {
+			$(".btn-group > ul li a").on('click', function () {
+					//alert($(this).parentsUntil($("btn-group.ddl_txt"), '.ddl_txt').attr('class'));
+			});
+			$('.dropdown-menu > li').click(function()
+			{
+				var businessType=$(this).text().replace(/ /g,'');
+				
+				$('.ddl_txt').html(businessType);
+				$('#company_business_type').val(businessType);
+			});	
+
+			$('.timepicker').timepicker();
+			$('.submit_company').click(function(e){
+				if($('#company_business_type').val() != "" && $('#company_name').val() != ""){
+
+					$.post('/companies', $('.new_company').serialize(),function(data){
+						if(data=="true"){
+							$('.company_first_step').hide()
+							$('.company_first_step_main').removeClass('active')
+							$('.company_second_step').show()
+							$('.company_second_step_main').addClass('active')
+						}
+					})
+				}
+				else
+				{
+					alert('Please provide the information first')
+				}	
+			})
+	});

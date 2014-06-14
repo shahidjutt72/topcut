@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy,:add_staff,:add_services]
-  before_filter :login_necessary
+  # before_filter :login_necessary
 
   # GET /companies
   # GET /companies.json
@@ -38,15 +38,17 @@ class CompaniesController < ApplicationController
     
     # @company = Company.new(company_params)    
     @company = current_user.build_company(company_params)    
-    respond_to do |format|
+    
       if @company.save
-        format.html { redirect_to add_staff_company_path(@company), notice: 'Company was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @company }
+        render :text => true
+        # format.html { redirect_to add_staff_company_path(@company), notice: 'Company was successfully created.' }
+        # format.json { render action: 'show', status: :created, location: @company }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
+        render :text => false
+        # format.html { render action: 'new' }
+        # format.json { render json: @company.errors, status: :unprocessable_entity }
       end
-    end
+    
   end
 
   # PATCH/PUT /companies/1

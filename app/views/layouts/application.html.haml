@@ -86,4 +86,31 @@
 	});
 	}
 	sign_up_validations();
-					
+	
+	$(document).ready(function () {
+		$("#main").onepage_scroll();
+		$("#btn-signin").popover({
+			html: true, content: function () { return $('#signin_popup').html(); }, title: function () { return $('#signin_header').html(); }
+		});
+		$("#btn-signup").popover({
+			html: true, content: function () { return $('#signup_popup').html(); }, title: function () { return $('#signup_header').html(); }
+		});
+		$("#btn-signin").click(function(e){
+			$('#btn-signup').parents('li').find('.fade').hide();				
+			
+		})
+		$("#btn-signup").click(function(e){
+			$('#btn-signin').parents('.sign_in_class').find('.fade').hide();
+			$('#btn-signup').parents('li').find('.fade').css('left','-54.5px !important');
+			sign_up_validations();
+		})
+		$('.sign_in_button').click(function(e){
+			$('.sign_in_form').submit();				
+			e.preventDefault();
+		})
+		$('.sign_up_button').click(function(e){
+			$('.sign_up_form').submit();				
+			e.preventDefault();
+		})
+	});
+				
