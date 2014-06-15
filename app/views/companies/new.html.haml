@@ -7,9 +7,9 @@
 		.span7.sepration
 			.row-fluid
 				.xtra-padded
-					.circle.pull-left.active.company_first_step_main
+					.circle.pull-left.company_first_step_main{:class =>"#{!current_user.company ? 'active' : ''}"}
 						%i.fa.fa-child.fa-3x
-					.circle.pull-left.company_second_step_main
+					.circle.pull-left.company_second_step_main{:class =>"#{(current_user.company and current_user.company.staffs.length == 0) ? 'active' : ''}"}
 						%i.fa.fa-clock-o.fa-3x
 					.circle.pull-left
 						%i.fa.fa-users.fa-3x
@@ -18,8 +18,8 @@
 					.circle.pull-left
 						%i.fa.fa-flag.fa-3x
 			.container-fluid.xtra-padded
-				.arrow-up
-				%section.welcome.section.company_first_step
+				.arrow-up{:class =>"#{current_user.company ? 'hide' : ''}"}
+				%section.welcome.section.company_first_step{:class =>"#{current_user.company ? 'hide' : ''}"}
 					%header
 						%h1
 							Welcome to ServeU
@@ -32,7 +32,7 @@
 								= f.text_field :name, :class =>"input input-large", :placeholder => "Company Name..."
 								= f.hidden_field :business_type
 								.btn-group.btn-info
-									%button.btn.btn-info.ddl_txt Type
+									%div.btn.btn-info.ddl_txt Type
 									%button.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
 										%span.caret
 									%ul.dropdown-menu
@@ -45,37 +45,21 @@
 							%a.animateBtn.top10{href: "#", :class =>"submit_company"}
 								%img.default{alt: "Settings", src: "/assets/go.png"}/
 								%span.animateBtn-text Let's Go
-				%section.hours.section.hide.company_second_step
+				.arrow-up{:style=>"margin-left:141px;",:class =>"#{(current_user.company and current_user.company.staffs.length == 0) ? '' : 'hide'}"}
+				%section.hours.section.company_second_step{:class =>"#{(current_user.company and current_user.company.staffs.length == 0) ? '' : 'hide'}"}
 					%header
 						%h1 Business Hours
 						%p To edit settings or staff & services just goto settings tab.
 					.container-fluid
-						.row-fluid
-							.span4.day
-								%a Mon
-								%input.timepicker.input-small{type: "text"}/
-								%input.timepicker.input-small{type: "text"}/
-							.span4.day
-								%a Tue
-								%input.timepicker.input-small{type: "text"}/
-								%input.timepicker.input-small{type: "text"}/
-							.span4.day
-								%a Wed
-								%input.timepicker.input-small{type: "text"}/
-								%input.timepicker.input-small{type: "text"}/
-						.row-fluid
-							.span4.day
-								%a Thu
-								%input.timepicker.input-small{type: "text"}/
-								%input.timepicker.input-small{type: "text"}/
-							.span4.day
-								%a Fri
-								%input.timepicker.input-small{type: "text"}/
-								%input.timepicker.input-small{type: "text"}/
-							.span4.day
-								%a Sat
-								%input.timepicker.input-small{type: "text"}/
-								%input.timepicker.input-small{type: "text"}/
+						= form_for(@company) do |f|
+							= f.fields_for :timing, @timing do |time|
+								-[["Monday","mon"],["Tuesday","tue"],["Wednesday","wed"],["Thursday","thu"],["Friday","fri"],["Saturday","sat"]].in_groups_of(3).each do |day_groups|
+									.row-fluid
+										-day_groups.each do |day|
+											.span4.day
+												%a #{day[0]}
+												= eval("time.text_field :#{day[1]}_opening_time, :class =>'start_end_time timepicker input-small'")
+												= eval("time.text_field :#{day[1]}_closing_time, :class =>'start_end_time timepicker input-small'")								
 				%section.staff.section.hide
 					%header
 						%h1 Staff Members
@@ -160,6 +144,7 @@
 				else
 				{
 					alert('Please provide the information first')
-				}	
+				}
+				e.preventDefault();	
 			})
 	});

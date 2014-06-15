@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy,:add_staff,:add_services]
-  # before_filter :login_necessary
+  before_filter :login_necessary
 
   # GET /companies
   # GET /companies.json
@@ -23,7 +23,7 @@ class CompaniesController < ApplicationController
 
   # GET /companies/new
   def new
-    @company = Company.new
+    @company = current_user.company ? current_user.company : Company.new
     @timing = @company.build_timing
   end
 
