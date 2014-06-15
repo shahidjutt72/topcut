@@ -1,25 +1,30 @@
 %link{:href =>"/assets/wizard.css", :rel =>"stylesheet"}
 / = render 'form'
 / .push
+-first_condition = current_user.company
+-second_condition = (current_user.company and !current_user.company.timing)
+-third_condition = (current_user.company and current_user.company.timing and current_user.company.staffs.length == 0)
+-fourth_condition = (current_user.company and current_user.company.timing and current_user.company.staffs.length > 0 and current_user.company.services.length == 0)
+-fifth_condition = (current_user.company and current_user.company.timing and current_user.company.staffs.length > 0 and current_user.company.services.length > 0)
 .push
 .container-fluid
 	.row-fluid
 		.span7.sepration
 			.row-fluid
 				.xtra-padded
-					.circle.pull-left.company_first_step_main{:class =>"#{!current_user.company ? 'active' : ''}"}
+					.circle.pull-left.company_first_step_main{:class =>"#{first_condition ? '' : 'active'}"}
 						%i.fa.fa-child.fa-3x
-					.circle.pull-left.company_second_step_main{:class =>"#{(current_user.company and current_user.company.staffs.length == 0) ? 'active' : ''}"}
+					.circle.pull-left.company_second_step_main{:class =>"#{second_condition ? 'active' : ''}"}
 						%i.fa.fa-clock-o.fa-3x
-					.circle.pull-left
+					.circle.pull-left.company_third_step_main{:class =>"#{third_condition ? 'active' : ''}"}
 						%i.fa.fa-users.fa-3x
-					.circle.pull-left
+					.circle.pull-left.company_fourth_step_main{:class =>"#{fourth_condition ? 'active' : ''}"}
 						%i.fa.fa-gears.fa-3x
-					.circle.pull-left
+					.circle.pull-left.company_fifth_step_main{:class =>"#{fifth_condition ? 'active' : ''}"}
 						%i.fa.fa-flag.fa-3x
 			.container-fluid.xtra-padded
-				.arrow-up.company_first_step_arrow{:class =>"#{current_user.company ? 'hide' : ''}"}
-				%section.welcome.section.company_first_step{:class =>"#{current_user.company ? 'hide' : ''}"}
+				.arrow-up.company_first_step_arrow{:class =>"#{first_condition ? 'hide' : ''}"}
+				%section.welcome.section.company_first_step{:class =>"#{first_condition ? 'hide' : ''}"}
 					%header
 						%h1
 							Welcome to ServeU
@@ -45,16 +50,16 @@
 							%a.animateBtn.top10{href: "#", :class =>"submit_company"}
 								%img.default{alt: "Settings", src: "/assets/go.png"}/
 								%span.animateBtn-text Let's Go
-				.arrow-up.company_second_step_arrow{:style=>"margin-left:141px;",:class =>"#{(current_user.company and !current_user.company.timing) ? '' : 'hide'}"}
-				%section.hours.section.company_second_step{:class =>"#{(current_user.company and !current_user.company.timing) ? '' : 'hide'}"}
+				.arrow-up.company_second_step_arrow{:style=>"margin-left:141px;",:class =>"#{second_condition ? '' : 'hide'}"}
+				%section.hours.section.company_second_step{:class =>"#{second_condition ? '' : 'hide'}"}
 					%header
-						%h1 Business Hours
 						.span2{:style =>"float:right;"}		
 							%button.btn.btn-block.btn-success.update_company_timings								
 								Next
+						%h1 Business Hours
 						%p To edit settings or staff & services just goto settings tab.						
 					.container-fluid
-						= form_for(@company, :url =>update_company_timings_companies_path, :html =>{:class =>"update_timings"}) do |f|
+						= form_for(@company, :url =>update_company_attrs_companies_path, :html =>{:class =>"update_timings"}) do |f|
 							= f.fields_for :timing, @timing do |time|
 								-[["Monday","mon"],["Tuesday","tue"],["Wednesday","wed"],["Thursday","thu"],["Friday","fri"],["Saturday","sat"]].in_groups_of(3).each do |day_groups|
 									.row-fluid
@@ -63,49 +68,70 @@
 												%a #{day[0]}
 												= eval("time.text_field :#{day[1]}_opening_time, :class =>'start_end_time timepicker input-small'")
 												= eval("time.text_field :#{day[1]}_closing_time, :class =>'start_end_time timepicker input-small'")																			
-				.arrow-up.company_third_step_arrow{:style=>"margin-left:250px;",:class =>"#{(current_user.company and current_user.company.timing and current_user.company.staffs.length == 0) ? '' : 'hide'}"}
-				%section.staff.section.company_third_step{:class =>"#{(current_user.company and current_user.company.timing and current_user.company.staffs.length == 0) ? '' : 'hide'}"}
+				.arrow-up.company_third_step_arrow{:style=>"margin-left:250px;",:class =>"#{third_condition ? '' : 'hide'}"}
+				%section.staff.section.company_third_step{:class =>"#{third_condition ? '' : 'hide'}"}
 					%header
+						.span2{:style =>"float:right;"}		
+							%button.btn.btn-block.btn-success.update_company_staffs								
+								Next
 						%h1 Staff Members
 						%p Each person you add will get their very own schedule created just for them.
 					.container-fluid
-						.row-fluid
-							.span4
-								%input.input.input-block-level{placeholder: "Name", type: "text"}/
-							.span3
-								%input.input.input-block-level{placeholder: "Email", type: "text"}/
-							.span3
-								%input.input.input-block-level{placeholder: "Phone", type: "text"}/
-							.span2
-								%button.btn.btn-block.btn-success
-									%i.fa.fa-plus>
-									\ Add
-				%section.services.section.hide
+						= form_for(@company, :url =>update_company_attrs_companies_path, :html =>{:class =>"update_staffs"}) do |f|							
+							.row-fluid.add_staff_new
+								= f.fields_for :staffs, @staffs do |staff|
+									.span4
+										= staff.text_field :name, :class =>"input input-block-level",:placeholder => "Name"
+										-#%input.input.input-block-level{placeholder: "Name", type: "text"}/
+									.span3
+										= staff.text_field :email, :class =>"input input-block-level",:placeholder => "Email"
+										-#%input.input.input-block-level{placeholder: "Email", type: "text"}/
+									.span3
+										= staff.text_field :phone, :class =>"input input-block-level",:placeholder => "Phone"
+										-#%input.input.input-block-level{placeholder: "Phone", type: "text"}/
+									= hidden_field_tag "loop_value", "#{@company.staffs.length}"
+									.span2
+										%div.btn.btn-block.btn-success.add_more_button
+											%i.fa.fa-plus>
+											\ Add
+				.arrow-up.company_fourth_step_arrow{:style=>"margin-left:354px;",:class =>"#{fourth_condition ? '' : 'hide'}"}
+				%section.services.section.company_fourth_step{:class =>"#{fourth_condition ? '' : 'hide'}"}
+					.span2{:style =>"float:right;"}		
+						%button.btn.btn-block.btn-success.update_company_services
+							Next
 					%header
 						%h1 Your Services
 						%p Add the services that your staff perform (i.e. Massage, Pedicure, Facials).
 					.container-fluid
-						.row-fluid
-							.span4
-								%input.input.input-block-level{placeholder: "Service Name", type: "text"}/
-							.span2
-								%input.input.input-block-level{placeholder: "0 mins", type: "text"}/
-							.span2
-								%input.input.input-block-level{placeholder: "$ 0", type: "text"}/
-							.span2
-								.btn-block.btn-group
-									%button.btn.btn-info
-										%i.fa.fa-user
-									%button.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
-										%span.caret
-									%ul.dropdown-menu
-										%li
-											%a{href: "#"} All
-							.span2
-								%button.btn.btn-block.btn-success
-									%i.fa.fa-plus>
-									\ Add
-				%section.done.section.hide
+						= form_for(@company, :url =>update_company_attrs_companies_path, :html =>{:class =>"update_services"}) do |f|						
+							.add_service_new
+								.row-fluid
+									= f.fields_for :services, @services do |ser|
+										.span4
+											= ser.text_field :name, :class =>"input input-block-level",:placeholder =>"Service Name"
+											-#%input.input.input-block-level{placeholder: "Service Name", type: "text"}/
+										.span2
+											= ser.text_field :service_time, :class =>"input input-block-level",:placeholder =>"0 mins"
+											-#%input.input.input-block-level{placeholder: "0 mins", type: "text"}/
+										.span2
+											= ser.text_field :cost, :class =>"input input-block-level",:placeholder =>"$ 0"
+											-#%input.input.input-block-level{placeholder: "$ 0", type: "text"}/
+										.span2
+											.btn-block.btn-group
+												%div.btn.btn-info
+													%i.fa.fa-user
+												%div.btn.btn-info.dropdown-toggle{"data-toggle" => "dropdown"}
+													%span.caret
+												%ul.dropdown-menu
+													%li
+														%a{href: "#"} All
+										= hidden_field_tag "loop_value_service", "#{@company.staffs.length}"
+										.span2
+											%button.btn.btn-block.btn-success.add_more_service_button
+												%i.fa.fa-plus
+												\ Add
+				.arrow-up.company_fifth_step_arrow{:style=>"margin-left:464px;",:class =>"#{fifth_condition ? '' : 'hide'}"}
+				%section.done.services.section.company_fifth_step{:class =>"#{fifth_condition ? '' : 'hide'}"}
 					%header
 						%h1
 							You are all done
@@ -113,7 +139,7 @@
 							my friend!
 						%p To edit settings or staff & services just goto settings tab.
 					.input-append-list
-						%a.animateBtn.top10{href: "#"}
+						%a.animateBtn.top10{href: "/"}
 							%img.default{alt: "Settings", src: "/assets/run.png"}/
 							%span.animateBtn-text Let's Start
 		.span5
@@ -151,16 +177,82 @@
 				{
 					alert('Please provide the information first')
 				}
-					})
-		e.preventDefault();	
-
+					e.preventDefault();	
+				})			
 			$('.update_company_timings').click(function(e){
-				$.get('/companies/update_company_timings', $('.update_timings').serialize(),function(data){
+				$.get('/companies/update_company_attrs', $('.update_timings').serialize(),function(data){
+					$('.company_second_step_main').removeClass('active')
+					$('.company_third_step_main').addClass('active')
 					$('.company_second_step').hide();
 					$('.company_second_step_arrow').hide();
 					$('.company_third_step').show();
-					$('..company_third_step_arrow').show();
+					$('.company_third_step_arrow').show();
 				});
 				e.preventDefault();
 			})
+		
+		$('.add_more_button').click(function(event){
+			var len;
+			len = $('#loop_value').val();
+			if(len == 0){
+			len = 1;
+			}
+			//$('.add_staff_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" placeholder="Name" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" placeholder="Email" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" placeholder="Phone" type="text"></div><div class="span2"><button class="btn btn-block btn-success add_more_button"><i class="fa fa-plus"></i>&nbsp;Add</button></div></div>');
+
+			$('.add_staff_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" placeholder="Name" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" placeholder="Email" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" placeholder="Phone" type="text"></div>');
+			len_2 = parseInt(len);
+			len_2 = len_2 + 1;
+			$('#loop_value').val(len_2);
+			event.preventDefault();
+		});
+
+		$('.update_company_staffs').click(function(e){
+			if($('#company_staffs_attributes_0_name').val() != "" && $('#company_staffs_attributes_0_email').val() != ""){
+				$.get('/companies/update_company_attrs', $('.update_staffs').serialize(),function(data){
+					$('.company_third_step_main').removeClass('active')
+					$('.company_fourth_step_main').addClass('active')
+					$('.company_third_step').hide();
+					$('.company_third_step_arrow').hide();
+					$('.company_fourth_step').show();
+					$('.company_fourth_step_arrow').show();
+				});
+			}
+			else
+			{
+				alert('Please provide the information first');
+			}	
+			e.preventDefault();
+		})
+
+		$('.add_more_service_button').click(function(event){
+			var len;
+			len = $('#loop_value_service').val();
+			if(len == 0){
+			len = 1;
+			}
+			
+			$('.add_service_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_services_attributes_'+len+'_name" name="company[services_attributes]['+len+'][name]" placeholder="Service Name" type="text"></div><div class="span2"><input class="input input-block-level" id="company_services_attributes_'+len+'_service_time" name="company[services_attributes]['+len+'][service_time]" placeholder="0 mins" type="text"></div><div class="span2"><input class="input input-block-level" id="company_services_attributes_'+len+'_cost" name="company[services_attributes]['+len+'][name]" placeholder="$ 0" type="text"></div><div class="span2"><div class="btn-block btn-group"><div class="btn btn-info"><i class="fa fa-user"></i></div><div class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></div><ul class="dropdown-menu"><li><a href="#">All</a></li></ul></div></div></div>');
+			len_2 = parseInt(len);
+			len_2 = len_2 + 1;
+			$('#loop_value_service').val(len_2);
+			event.preventDefault();
+		});
+
+		$('.update_company_services').click(function(e){
+			if($('#company_services_attributes_0_name').val() != "" && $('#company_services_attributes_0_service_time').val() != ""){
+				$.get('/companies/update_company_attrs', $('.update_services').serialize(),function(data){
+					$('.company_fourth_step_main').removeClass('active')
+					$('.company_fifth_step_main').addClass('active')
+					$('.company_fourth_step').hide();
+					$('.company_fourth_step_arrow').hide();
+					$('.company_fifth_step').show();
+					$('.company_fifth_step_arrow').show();
+				});
+			}
+			else
+			{
+				alert('Please provide the information first');
+			}	
+			e.preventDefault();
+		})
 	});

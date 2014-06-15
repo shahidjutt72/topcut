@@ -5,5 +5,5 @@ class Company < ActiveRecord::Base
 	has_many :services	
 	accepts_nested_attributes_for :timing
 	accepts_nested_attributes_for :services
-	accepts_nested_attributes_for :staffs, :update_only => true, :allow_destroy => true
+	accepts_nested_attributes_for :staffs
 end

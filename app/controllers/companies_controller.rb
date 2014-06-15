@@ -25,6 +25,8 @@ class CompaniesController < ApplicationController
   def new
     @company = current_user.company ? current_user.company : Company.new
     @timing = @company.timing ? @company.timing : @company.build_timing
+    @staffs = @company.staffs.length > 0 ? @company.staffs : Staff.new
+    @services = @company.services.length > 0 ? @company.services : Service.new
   end
 
   # GET /companies/1/edit
@@ -51,7 +53,7 @@ class CompaniesController < ApplicationController
     
   end
 
-  def update_company_timings    
+  def update_company_attrs    
     @company = current_user.company ? current_user.company : Company.new
     @company.update_attributes(company_params)
     render :text => true  

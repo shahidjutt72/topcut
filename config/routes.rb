@@ -7,7 +7,7 @@ Topcut::Application.routes.draw do
       get 'add_services'
     end
     collection do
-      get 'update_company_timings'
+      get 'update_company_attrs'
     end  
   end  
 
