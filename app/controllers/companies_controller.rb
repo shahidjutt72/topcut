@@ -24,7 +24,7 @@ class CompaniesController < ApplicationController
   # GET /companies/new
   def new
     @company = current_user.company ? current_user.company : Company.new
-    @timing = @company.build_timing
+    @timing = @company.timing ? @company.timing : @company.build_timing
   end
 
   # GET /companies/1/edit
@@ -50,6 +50,12 @@ class CompaniesController < ApplicationController
       end
     
   end
+
+  def update_company_timings    
+    @company = current_user.company ? current_user.company : Company.new
+    @company.update_attributes(company_params)
+    render :text => true  
+  end  
 
   # PATCH/PUT /companies/1
   # PATCH/PUT /companies/1.json

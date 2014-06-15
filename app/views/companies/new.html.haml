@@ -18,7 +18,7 @@
 					.circle.pull-left
 						%i.fa.fa-flag.fa-3x
 			.container-fluid.xtra-padded
-				.arrow-up{:class =>"#{current_user.company ? 'hide' : ''}"}
+				.arrow-up.company_first_step_arrow{:class =>"#{current_user.company ? 'hide' : ''}"}
 				%section.welcome.section.company_first_step{:class =>"#{current_user.company ? 'hide' : ''}"}
 					%header
 						%h1
@@ -45,13 +45,16 @@
 							%a.animateBtn.top10{href: "#", :class =>"submit_company"}
 								%img.default{alt: "Settings", src: "/assets/go.png"}/
 								%span.animateBtn-text Let's Go
-				.arrow-up{:style=>"margin-left:141px;",:class =>"#{(current_user.company and current_user.company.staffs.length == 0) ? '' : 'hide'}"}
-				%section.hours.section.company_second_step{:class =>"#{(current_user.company and current_user.company.staffs.length == 0) ? '' : 'hide'}"}
+				.arrow-up.company_second_step_arrow{:style=>"margin-left:141px;",:class =>"#{(current_user.company and !current_user.company.timing) ? '' : 'hide'}"}
+				%section.hours.section.company_second_step{:class =>"#{(current_user.company and !current_user.company.timing) ? '' : 'hide'}"}
 					%header
 						%h1 Business Hours
-						%p To edit settings or staff & services just goto settings tab.
+						.span2{:style =>"float:right;"}		
+							%button.btn.btn-block.btn-success.update_company_timings								
+								Next
+						%p To edit settings or staff & services just goto settings tab.						
 					.container-fluid
-						= form_for(@company) do |f|
+						= form_for(@company, :url =>update_company_timings_companies_path, :html =>{:class =>"update_timings"}) do |f|
 							= f.fields_for :timing, @timing do |time|
 								-[["Monday","mon"],["Tuesday","tue"],["Wednesday","wed"],["Thursday","thu"],["Friday","fri"],["Saturday","sat"]].in_groups_of(3).each do |day_groups|
 									.row-fluid
@@ -59,8 +62,9 @@
 											.span4.day
 												%a #{day[0]}
 												= eval("time.text_field :#{day[1]}_opening_time, :class =>'start_end_time timepicker input-small'")
-												= eval("time.text_field :#{day[1]}_closing_time, :class =>'start_end_time timepicker input-small'")								
-				%section.staff.section.hide
+												= eval("time.text_field :#{day[1]}_closing_time, :class =>'start_end_time timepicker input-small'")																			
+				.arrow-up.company_third_step_arrow{:style=>"margin-left:250px;",:class =>"#{(current_user.company and current_user.company.timing and current_user.company.staffs.length == 0) ? '' : 'hide'}"}
+				%section.staff.section.company_third_step{:class =>"#{(current_user.company and current_user.company.timing and current_user.company.staffs.length == 0) ? '' : 'hide'}"}
 					%header
 						%h1 Staff Members
 						%p Each person you add will get their very own schedule created just for them.
@@ -138,6 +142,8 @@
 							$('.company_first_step_main').removeClass('active')
 							$('.company_second_step').show()
 							$('.company_second_step_main').addClass('active')
+							$('.company_first_step_arrow').hide()
+							$('.company_second_step_arrow').show()
 						}
 					})
 				}
@@ -145,6 +151,16 @@
 				{
 					alert('Please provide the information first')
 				}
-				e.preventDefault();	
+					})
+		e.preventDefault();	
+
+			$('.update_company_timings').click(function(e){
+				$.get('/companies/update_company_timings', $('.update_timings').serialize(),function(data){
+					$('.company_second_step').hide();
+					$('.company_second_step_arrow').hide();
+					$('.company_third_step').show();
+					$('..company_third_step_arrow').show();
+				});
+				e.preventDefault();
 			})
 	});
