@@ -5,6 +5,9 @@ Topcut::Application.routes.draw do
     member do
       get 'add_staff'
       get 'add_services'
+    end
+    collection do
+      get 'update_company_timings'
     end  
   end  
 
