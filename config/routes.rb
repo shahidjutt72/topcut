@@ -1,5 +1,6 @@
 Topcut::Application.routes.draw do
   resources :timings
+  resources :slots
 
   resources :companies do
     member do
