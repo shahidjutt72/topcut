@@ -9,27 +9,42 @@
 		%link{:href =>"/assets/demo.css", :rel =>"stylesheet"}
 		%script{src: "/assets/demo.js"}
 		%div{:id=> 'calendar'}
-		#event_edit_container
+		#event_edit_container{:style =>"top:9.304688px;z-index:10000;"}
 			= form_for @slot, :html =>{:class =>"create_new_slot"} do |f|
 				%input{type: "hidden"}/
 				%ul
-					%li
+					%li.li_margins{:style =>"margin-top:-5px;"}
 						%span Date:
 						%span.date_holder										
 					-#date.setMinutes(date.getMinutes()+90);
-					%li
+					%li.li_margins
 						%label{for: "provider"} Provider:
 						= f.select :staff_id, options_from_collection_for_select(@staffs,"id","name")						
 					= f.hidden_field :service_time
 					= f.hidden_field :cost
 					= f.hidden_field :slot_start_time
 					= f.hidden_field :slot_end_time
-					%li
+					%li.li_margins
 						%label{for: "services"} Services:
 						= f.select :service_id, options_from_collection_for_select(@services,"id","name")								
-					%li
+					%li.li_margins
 						%label{for: "notes"} Notes:
-						= f.text_area :notes						
+						= f.text_area :notes
+					%li.li_margins
+						%label{for: "services"} Customer Name:
+						= text_field_tag "cust_name", "",:required => "required"
+					%li.li_margins
+						%label{for: "services"} Customer Email:
+						= text_field_tag "cust_email", "",:required => "required"
+					%li.li_margins
+						%label{for: "services"} Mobile Phone:
+						= text_field_tag "cust_mobile", "",:required => "required"
+					%li.li_margins
+						%label{for: "services"} Address:
+						= text_field_tag "cust_address", ""
+					%li.li_margins
+						%label{for: "services"} City:
+						= text_field_tag "cust_city", ""	
 		%script
 			service_time = {}
 			service_cost = {}
@@ -90,24 +105,26 @@
 								},
 								buttons: {
 									 save : function() {
-										$('#slot_service_time').val(service_time[$('#slot_service_id').val()]);
-										$('#slot_cost').val(service_cost[$('#slot_service_id').val()]);
-										start = calEvent.start
+										if($('.create_new_slot').valid()){
+											$('#slot_service_time').val(service_time[$('#slot_service_id').val()]);
+											$('#slot_cost').val(service_cost[$('#slot_service_id').val()]);
+											start = calEvent.start
 
-										$('#slot_slot_start_time').val(calEvent.start);										
-										start.setMinutes(start.getMinutes()+parseInt(service_time[$('#slot_service_id').val()]));
-										$('#slot_slot_end_time').val(start);										
-										$('.create_new_slot').submit();
-											calEvent.id = id;
-											id++;
-											calEvent.start = new Date(startField.val());
-											calEvent.end = new Date(endField.val());
-											calEvent.title = titleField.val();
-											calEvent.body = bodyField.val();
+											$('#slot_slot_start_time').val(calEvent.start);										
+											start.setMinutes(start.getMinutes()+parseInt(service_time[$('#slot_service_id').val()]));
+											$('#slot_slot_end_time').val(start);										
+											$('.create_new_slot').submit();
+												calEvent.id = id;
+												id++;
+												calEvent.start = new Date(startField.val());
+												calEvent.end = new Date(endField.val());
+												calEvent.title = titleField.val();
+												calEvent.body = bodyField.val();
 
-											//$calendar.weekCalendar("removeUnsavedEvents");
-											//$calendar.weekCalendar("updateEvent", calEvent);
-											//$dialogContent.dialog("close");
+												//$calendar.weekCalendar("removeUnsavedEvents");
+												//$calendar.weekCalendar("updateEvent", calEvent);
+												//$dialogContent.dialog("close");
+											}	
 									 },
 									 cancel : function() {
 											$dialogContent.dialog("close");

@@ -7,9 +7,9 @@
         %header
           %h3 
             Customers
-            %button.btn.btn-success.pull-right
-              %i.fa.fa-plus>
-              \  Add New
+            / %button.btn.btn-success.pull-right
+            /   %i.fa.fa-plus>
+            /   \  Add New
           %input.input-block-level{placeholder: "Search Customer...", type: "text"}/
         .side-content
           %ul.media-list
@@ -57,6 +57,7 @@
                         %label.control-label{for: "inputAddress"} Address
                         .controls
                           %textarea#inputAddress{placeholder: "Address", rows: "6", :value => customer.address, :class =>"common_field", :cust_id =>customer.id, :field_name => "address"}
+                            = customer.address
                       .control-group
                         %label.control-label{for: "inputCity"} City
                         .controls

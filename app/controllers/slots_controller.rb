@@ -1,7 +1,12 @@
 class SlotsController < ApplicationController
-	def create
+	def create		
 		@slot = Slot.new(slot_params)
 		@slot.company_id = current_user.company.id
+		cust = Customer.find_or_create_by_name_and_email_and_mobile_phone(params[:cust_name],params[:cust_email],params[:cust_mobile])
+		cust.address = params[:cust_address]
+		cust.city = params[:cust_city]
+		cust.save
+		@slot.customer_id = cust.id
 		@slot.save
 		
 		redirect_to "/", :notice =>"Apointment Successfully Added"		
