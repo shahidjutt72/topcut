@@ -53,7 +53,7 @@
 				service_time["#{s.id}"] = "#{s.service_time ? s.service_time : 0}"
 				service_cost["#{s.id}"] = "#{s.cost ? s.cost : 0}"
 			-@company.slots.each do |slot|
-				hash = {"id": "#{slot.id}","start": new Date("#{slot.slot_start_time.year}","#{slot.slot_start_time.month-1}", "#{slot.slot_start_time.day}", "#{slot.slot_start_time.hour-7}","#{slot.slot_start_time.min}"), "end": new Date("#{slot.slot_end_time.year}","#{slot.slot_end_time.month-1}", "#{slot.slot_end_time.day}", "#{slot.slot_end_time.hour-7}","#{slot.slot_end_time.min}"),"title": "#{slot.notes}"}
+				hash = {"id": "#{slot.id}","start": new Date("#{slot.slot_start_time.year}","#{slot.slot_start_time.month-1}", "#{slot.slot_start_time.day}", "#{slot.slot_start_time.hour-7}","#{slot.slot_start_time.min}"), "end": new Date("#{slot.slot_end_time.year}","#{slot.slot_end_time.month-1}", "#{slot.slot_end_time.day}", "#{slot.slot_end_time.hour-7}","#{slot.slot_end_time.min}"),"title": "#{slot.service.name} $#{slot.service.cost}"}
 				slots_arr.push(hash);
 		:javascript
 			$(document).ready(function() {								
