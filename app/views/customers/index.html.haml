@@ -74,7 +74,25 @@
                         %label.control-label{for: "inputZip"} Country
                         .controls
                           %input#inputZip{placeholder: "Zip", type: "text", :value => customer.ountry, :class =>"common_field", :cust_id =>customer.id, :field_name => "ountry"}/    
-                  .tab-pane{:id =>"appointments_#{customer.id}"} Appointmet Tab.
+                  .tab-pane{:id =>"appointments_#{customer.id}"} 
+                    -slots = customer.slots
+                    %ul#appointmentList.appointmentList
+                      -slots.each do |slot|
+                        %li#c30.hasHoverStyles
+                          %span.fl.appointment_status_icon
+                            %i.icon-calendar
+                          .fl
+                            %h4 #{slot.slot_start_time.to_date}
+                            %label
+                              %span.fl #{slot.staff.name}
+                              %span.fl.dotSplitter .
+                              %span.fl #{slot.service.name}
+                              %span.fl.dotSplitter .
+                              %span.fl #{slot.service.service_time} min
+                              %span.fl.dotSplitter .
+                              %span.fl $#{slot.service.cost}
+                              .clearfix
+                          .clearfix
                   .tab-pane{:id =>"notes_#{customer.id}"}
                     %form.form-horizontal
                       / .control-group

@@ -1,8 +1,8 @@
 class SlotsController < ApplicationController
 	def create		
 		@slot = Slot.new(slot_params)
-		@slot.company_id = current_user.company.id
-		cust = Customer.find_or_create_by_name_and_email_and_mobile_phone(params[:cust_name],params[:cust_email],params[:cust_mobile])
+		@slot.company_id = @company.id
+		cust = Customer.find_or_create_by_name_and_email_and_mobile_phone_and_company_id(params[:cust_name],params[:cust_email],params[:cust_mobile],@company.id)
 		cust.address = params[:cust_address]
 		cust.city = params[:cust_city]
 		cust.save

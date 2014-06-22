@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   # protect_from_forgery with: :exception
   before_filter :register_company, :except =>[:new, :create,:destroy,:update_company_attrs]
-  before_filter :set_company
+  before_filter :set_company_overall
   protected
   def self.active_scaffold_controller_for(klass)
   	return ManageUsersController if klass == User
@@ -11,11 +11,11 @@ class ApplicationController < ActionController::Base
   end	
   private
 
-  def set_company
+  def set_company_overall
     if current_user
-      @Company = current_user.company
+      @company = current_user.company
     else
-      @Company = nil
+      @company = nil
     end
   end
   def after_sign_in_path_for(resource_or_scope)
