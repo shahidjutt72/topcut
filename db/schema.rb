@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140608113024) do
+ActiveRecord::Schema.define(version: 20140621165428) do
 
   create_table "authentications", force: true do |t|
     t.string   "provider"
@@ -29,22 +29,8 @@ ActiveRecord::Schema.define(version: 20140608113024) do
     t.datetime "updated_at"
   end
 
-  create_table "customers", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "mobile_phone"
-    t.string   "office_phone"
-    t.string   "home_phone"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "ountry"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "notes"
-  end
+# Could not dump table "customers" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "promotions", force: true do |t|
     t.string   "name"
@@ -73,6 +59,20 @@ ActiveRecord::Schema.define(version: 20140608113024) do
   create_table "services_staffs", force: true do |t|
     t.integer "service_id"
     t.integer "staff_id"
+  end
+
+  create_table "slots", force: true do |t|
+    t.integer  "staff_id"
+    t.integer  "service_id"
+    t.integer  "company_id"
+    t.integer  "customer_id"
+    t.datetime "slot_start_time"
+    t.datetime "slot_end_time"
+    t.text     "notes"
+    t.float    "cost"
+    t.integer  "service_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "staffs", force: true do |t|
@@ -139,10 +139,6 @@ ActiveRecord::Schema.define(version: 20140608113024) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "first_name"
@@ -158,6 +154,10 @@ ActiveRecord::Schema.define(version: 20140608113024) do
     t.boolean  "notify_payment"
     t.string   "user_type"
     t.boolean  "is_admin"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
