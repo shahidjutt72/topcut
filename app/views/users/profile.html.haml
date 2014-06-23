@@ -1,0 +1,539 @@
+%link{:href =>"/assets/profile.css", :rel =>"stylesheet"}
+%link{:href =>"/assets/jquery-ui.css", :rel =>"stylesheet"}
+.padded-none.container-fluid
+	.row-fluid
+		.span2.left-1
+			%ul.nav.nav-tabs.tabs-left
+				%li.active
+					%a{"data-toggle" => "tab", :href => "#preview"}
+						%i.fa.fa-users.tab-big>
+						\&nbsp;&nbsp;Preview
+				%li
+					%a{"data-toggle" => "tab", :href => "#configuration"}
+						%i.fa.fa-calendar.tab-big>
+						\&nbsp;&nbsp;Configure
+				%li
+					%a{"data-toggle" => "tab", :href => "#embed"}
+						%i.fa.fa-paper-plane.tab-big>
+						\&nbsp;&nbsp;Embed
+				%li
+					%a{"data-toggle" => "tab", :href => "#reviews"}
+						%i.fa.fa-paper-plane.tab-big>
+						\&nbsp;&nbsp;Reviews
+		.span10.left-none.borderd
+			.row-fluid
+				.tab-content.level2-content
+					#preview.tab-pane.active
+						.span3
+							%h3 Company Name
+							%ul#Ul4.nav.nav-pills.nav-stacked.side-list
+								%li.active
+									%a{"data-toggle" => "tab", :href => "#appointment"}
+										%i.icon-desktop
+										%span Book Appointment
+								%li
+									%a{"data-toggle" => "tab", :href => "#staff"}
+										%i.icon-facebook-sign
+										%span Staff Members
+								%li
+									%a{"data-toggle" => "tab", :href => "#service"}
+										%i.icon-bar-chart
+										%span Services
+								%li
+									%a#A4{"data-toggle" => "tab", :href => "#reviw"}
+										%i.icon-maxcdn
+										%span Reviews
+						.span9
+							.tab-content.level3-content
+								#appointment.tab-pane.active
+									%h3 Book Appointment
+									%ul#Ul5.nav.nav-tabs.appointment-tabs
+										%li.active
+											%a{"data-toggle" => "tab", :href => "#b_service"}
+												%span> Service
+												\&nbsp;&nbsp;
+												%i.fa.fa-chevron-right
+										%li
+											%a{"data-toggle" => "tab", :href => "#b_provider"}
+												%span> Provider
+												\&nbsp;&nbsp;
+												%i.fa.fa-chevron-right
+										%li
+											%a{"data-toggle" => "tab", :href => "#b_date"}
+												%span> Date
+												\&nbsp;&nbsp;
+												%i.fa.fa-chevron-right
+										%li
+											%a#A5{"data-toggle" => "tab", :href => "#b_info"}
+												%span> Your Info
+												\&nbsp;&nbsp;
+												%i.fa.fa-chevron-right
+										%li
+											%a#A6{"data-toggle" => "tab", :href => "#b_confirm"}
+												%span> Confirm
+												\&nbsp;&nbsp;
+												%i.fa.fa-chevron-right
+									#progressbar
+										.progress
+											.bar.bar-info.progress-bar.progress-bar-info{:style => "width: 20%;"}
+											.bar.bar-warning.progress-bar.progress-bar-warning{:style => "width: 20%;"}
+											.bar.bar-primary.progress-bar.progress-bar-primary{:style => "width: 20%;"}
+											.bar.bar-danger.progress-bar.progress-bar-danger{:style => "width: 20%;"}
+											.bar.bar-success.progress-bar.progress-bar-success{:style => "width: 20%;"}
+									.tab-content
+										#b_service.tab-pane.active
+											%h3.service-head All Services
+											.padded-pane
+												%ul.service-list
+													-@company.services.each do |service|
+														%li
+															%a
+																%span.pull-left #{service.name}
+																%span.pull-right.amount
+																	%i.fa.fa-dollar>
+																	\&nbsp;#{service.cost} $
+																%span.pull-right.time
+																	%i.fa.fa-clock-o>
+																	\&nbsp;#{service.service_time} minutes													
+										#b_provider.tab-pane
+											%h3.service-head All Providers
+											.row-fluid
+												.span8
+													%ul.media-list
+														-@company.staffs.each do |staff|
+															%li.media
+																%a.pull-left{:href => "#"}
+																	%img.img-circle{:src => "/assets/user.png", :width => "50"}
+																.media-body
+																	%h4.media-heading #{staff.name}
+																	%p #{staff.email}, #{staff.phone}
+												.span4
+													.head-padded
+														= render :partial =>"company_timing"
+										#b_date.tab-pane
+											%h3.service-head Choose a Date and Time (GAMT)
+											.row-fluid
+												.span8
+													%input#calendar-field.hidden{:type => "text"}/
+													#calendar
+												.span4
+													%table.time-list
+														%thead
+															%tr
+																%th Morning
+																%th Afternoon
+																%th Evening
+														%tbody
+															%tr
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+															%tr
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+															%tr
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+															%tr
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+															%tr
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+															%tr
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+																%td
+																	%a 08:00 am
+											.row-fluid
+												.span6
+													.head-padded
+														= render :partial =>"company_timing"
+										#b_info.tab-pane
+											.padded-pane
+												%form.form-horizontal
+													.control-group
+														%label.control-label{:for => "inputEmail"} Full Name
+														.controls
+															%input#Text1{:placeholder => "Full Name (e.g. Atif Farooq)", :type => "text"}
+													.control-group
+														%label.control-label{:for => "inputMobile"} Mobile
+														.controls
+															%input#Text2{:placeholder => "Mobile", :type => "text"}
+													.control-group
+														%label.control-label{:for => "inputOffice"} Email
+														.controls
+															%input#Text3{:placeholder => "Email", :type => "text"}
+													.control-group
+														%label.control-label{:for => "inputAddress"} Address
+														.controls
+															%textarea#Textarea1{:placeholder => "Address", :rows => "5"}
+													.control-group
+														%label.control-label{:for => "inputAddress"} Comments
+														.controls
+															%textarea#Textarea2{:placeholder => "Comments", :rows => "5"}
+													.control-group
+														%label.control-label.hidden{:for => "inputAddress"} -
+														.controls
+															%button.btn.btn-large.btn-info
+																%i.fa.fa-check>
+																\&nbsp;&nbsp;Continue
+										#b_confirm.tab-pane
+											.padded-pane
+												%h3.service-head Confirm Your Information
+												%form.form-horizontal
+													.control-group
+														%label.control-label{:for => "inputEmail"} Full Name
+														.controls
+															%label.control-label Atif Farooq Siddiqui
+													.control-group
+														%label.control-label{:for => "inputMobile"} Mobile
+														.controls
+															%label.control-label +92 322 8045299
+													.control-group
+														%label.control-label{:for => "inputOffice"} Email
+														.controls
+															%label.control-label Atifarooq@gmail.com
+													.control-group
+														%label.control-label{:for => "inputAddress"} Address
+														.controls
+															%label.control-label House # 123, Abc Town Def Road, Faisalabad
+													.control-group
+														%label.control-label{:for => "inputAddress"} Comments
+														.controls
+															%label.control-label Atif is very good boy and having creative skills :)
+													.control-group
+														%label.control-label.hidden{:for => "inputAddress"} -
+														.controls
+															%button.btn.btn-large.btn-success
+																%i.fa.fa-calendar>
+																\&nbsp;&nbsp;Book My Appointment
+								#staff.tab-pane
+									%h3 Providers
+									.row-fluid
+										.span8
+											%ul.media-list
+												-@company.staffs.each do |staff|
+													%li.media
+														%a.pull-left{:href => "#"}
+															%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+														.media-body
+															%h4.media-heading #{staff.name}
+															%p #{staff.email}, #{staff.phone}
+										.span4
+											.head-padded
+												= render :partial =>"company_timing"												
+								#service.tab-pane
+									%h3 Services
+									.row-fluid
+										.span8
+											%ul.media-list
+												-@company.services.each do |service|
+													%li.media
+														%a.pull-left{:href => "#"}
+															%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+														.media-body
+															%h4.media-heading #{service.name}
+															%p.pull-left
+																%i.fa.fa-clock-o>
+																\&nbsp;#{service.service_time} minutes
+															%p.pull-right
+																%i.fa.fa-dollar>
+																\&nbsp;#{service.cost} $												
+										.span4
+											.head-padded
+												= render :partial =>"company_timing"
+								#reviw.tab-pane
+									%h3 Reviews
+									.row-fluid
+										.span8
+											%ul.media-list
+												%li.media
+													%a.pull-left{:href => "#"}
+														%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+													.media-body
+														%p.pull-right
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star
+														%h4.media-heading Atif Farooq
+														%p.pull-left
+															%i.fa.fa-clock-o>
+															\&nbsp;35 minutes ago
+													%p.review This service is very very good. I rank ti on five star
+												%li.media
+													%a.pull-left{:href => "#"}
+														%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+													.media-body
+														%p.pull-right
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star
+														%h4.media-heading Atif Farooq
+														%p.pull-left
+															%i.fa.fa-clock-o>
+															\&nbsp;35 minutes ago
+													%p.review This service is very very good. I rank ti on five star
+												%li.media
+													%a.pull-left{:href => "#"}
+														%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+													.media-body
+														%p.pull-right
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star
+														%h4.media-heading Atif Farooq
+														%p.pull-left
+															%i.fa.fa-clock-o>
+															\&nbsp;35 minutes ago
+													%p.review This service is very very good. I rank ti on five star
+												%li.media
+													%a.pull-left{:href => "#"}
+														%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+													.media-body
+														%p.pull-right
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star>
+															\&nbsp;
+															%i.fa.fa-star
+														%h4.media-heading Atif Farooq
+														%p.pull-left
+															%i.fa.fa-clock-o>
+															\&nbsp;35 minutes ago
+													%p.review This service is very very good. I rank ti on five star
+										.span4
+											.head-padded
+												= render :partial =>"company_timing"
+					#configuration.tab-pane
+						.span3
+							%h3 Configuration
+							%ul#Ul1.nav.nav-pills.nav-stacked.side-list
+								%li.active
+									%a{"data-toggle" => "tab", :href => "#details"}
+										%i.icon-desktop
+										%span Company Details
+								%li
+									%a{"data-toggle" => "tab", :href => "#hours"}
+										%i.icon-facebook-sign
+										%span Bussiness Hours
+								%li
+									%a{"data-toggle" => "tab", :href => "#policy"}
+										%i.icon-bar-chart
+										%span Bookign Policies
+								%li
+									%a#A1{"data-toggle" => "tab", :href => "#custom"}
+										%i.icon-maxcdn
+										%span Custmization
+						.span9
+							.tab-content.level3-content
+								#details.tab-pane.active
+									%h3 Configure Your ServU Booking Page
+									%form.form-horizontal
+										.control-group
+											%label.control-label{:for => "inputEmail"}
+												Profile Logo
+											.controls
+												%img{:src => "/assets/logo-placeholder.png"}/
+										.control-group
+											%label.control-label{:for => "inputEmail"} Email
+											.controls
+												%input#inputEmail{:placeholder => "Email", :type => "text"}
+										.control-group
+											%label.control-label{:for => "inputMobile"} Mobile
+											.controls
+												%input#inputMobile{:placeholder => "Mobile", :type => "text"}
+										.control-group
+											%label.control-label{:for => "inputOffice"} Website
+											.controls
+												%input#inputOffice{:placeholder => "Phone", :type => "text"}
+										.control-group
+											%label.control-label{:for => "inputHome"} Currency
+											.controls
+												%select
+													%option USD
+										.control-group
+											%label.control-label{:for => "inputAddress"} Address
+											.controls
+												%textarea#inputAddress{:placeholder => "Address", :rows => "5"}
+										.control-group
+											%label.control-label{:for => "inputCity"} About You
+											.controls
+												%input#inputCity{:placeholder => "City", :type => "text"}
+										.control-group
+											%label.control-label{:for => "inputState"} Social Media
+											.controls
+												%input#inputState{:placeholder => "www.facebbo.com etc", :type => "text"}
+								#hours.tab-pane
+								#policy.tab-pane
+								#custom.tab-pane
+									%h3 Customize your Booking Page
+									%h5 Customize the labels for Booking page
+									%form.form-horizontal
+										.control-group
+											%label.control-label{:for => "inputEmail"}
+												Time Format
+											.controls
+												%select
+													%option 12 Hours
+													%option 24 Hours
+										.control-group
+											%label.control-label{:for => "inputEmail"}
+												Show Service as
+											.controls
+												%input{:type => "text"}/
+										.control-group
+											%label.control-label{:for => "inputEmail"}
+												Service Provide as
+											.controls
+												%input{:type => "text"}/
+										.control-group
+											%label.control-label{:for => "inputEmail"}
+												Show Address as
+											.controls
+												%input.input-medium{:type => "text"}/
+												%input.input-medium{:type => "text"}/
+												%input.input-medium{:type => "text"}/
+					#embed.tab-pane
+						.span3
+							%h3 Embed
+							%ul#Ul2.nav.nav-pills.nav-stacked.side-list
+								%li.active
+									%a{"data-toggle" => "tab", :href => "#embed/website"}
+										%i.icon-desktop
+										%span WEBSITE
+								%li
+									%a{"data-toggle" => "tab", :href => "#embed/plugins"}
+										%i.icon-facebook-sign
+										%span SOCIAL PLUGINS
+								%li
+									%a{"data-toggle" => "tab", :href => "#embed/analytics"}
+										%i.icon-bar-chart
+										%span GOOGLE ANALYTICS
+								%li
+									%a#A2{"data-toggle" => "tab", :href => "#embed/mailchimp"}
+										%i.icon-maxcdn
+										%span MAILCHIMP
+						.span9
+							.tab-content.level3-content
+								#Div2.tab-pane.active
+					#reviews.tab-pane
+						.span3
+							%h3 Reviews
+							%ul#Ul3.nav.nav-pills.nav-stacked.side-list
+								%li.active
+									%a{"data-toggle" => "tab", :href => "#pref"}
+										%i.icon-desktop
+										%span Prefernce
+								%li
+									%a{"data-toggle" => "tab", :href => "#pending"}
+										%i.icon-facebook-sign
+										%span Pending
+								%li
+									%a{"data-toggle" => "tab", :href => "#publish"}
+										%i.icon-bar-chart
+										%span Published
+								%li
+									%a#A3{"data-toggle" => "tab", :href => "#hidden"}
+										%i.icon-maxcdn
+										%span Hidden
+						.span9
+							.tab-content.level3-content
+								#pref.tab-pane.active
+									%h3 Accept reviews from your customers through booking page
+									%form.form-horizontal
+										.control-group
+											%label.control-label{:for => "inputEmail"}
+												Accept Reviews
+											.controls
+												%input{:type => "checkbox"}/
+								#pending.tab-pane
+								#publish.tab-pane
+									%h3 Published Reviews
+									.row-fluid.line
+										.span4
+											%label May, 10 2014
+										.span4
+											%label Imran Hameed
+										.span4
+											%label
+												%i.fa.fa-star>
+												\&nbsp;
+												%i.fa.fa-star>
+												\&nbsp;
+												%i.fa.fa-star>
+												\&nbsp;
+												%i.fa.fa-star-half-empty>
+												\&nbsp;
+												%i.fa.fa-star-half-empty
+									.row-fluid.line
+										.span4
+											%label May, 10 2014
+										.span4
+											%label Imran Hameed
+										.span4
+											%label
+												%i.fa.fa-star>
+												\&nbsp;
+												%i.fa.fa-star>
+												\&nbsp;
+												%i.fa.fa-star>
+												\&nbsp;
+												%i.fa.fa-star-half-empty>
+												\&nbsp;
+												%i.fa.fa-star-half-empty
+								#hidden.tab-pane	
+	:javascript
+		$(document).ready(function () {
+				$('#calendar').datepicker({
+						inline: true,
+						altField: '#calendar-field'
+				});
+
+				$('#calendar-field').change(function () {
+						$('#calendar').datepicker('setDate', $(this).val());
+				});
+		});

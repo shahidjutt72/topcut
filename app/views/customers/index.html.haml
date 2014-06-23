@@ -109,7 +109,7 @@
                           %textarea#inputNote{placeholder: "Please type note,note should be less then 256 characters", rows: "15", :class =>"common_field", :cust_id =>customer.id, :field_name => "notes"}
                             = customer.notes                  
             .span2.left-1
-              %ul.nav.nav-tabs.tabs-right
+              %ul.nav.nav-tabs.tabs-right.customers_tab_padding
                 %li.active
                   %a{"data-toggle" => "tab", href: "#customer_#{customer.id}"}
                     %i.fa.fa-users.tab-big>

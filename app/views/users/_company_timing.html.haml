@@ -1,0 +1,9 @@
+%h3 Bussiness Hours
+%ul.bussiness-schedual
+	-[["Monday","mon"],["Tuesday","tue"],["Wednesday","wed"],["Thursday","thu"],["Friday","fri"],["Saturday","sat"],["Sunday","sun"]].each do |day_ull,day|
+		%li
+			-if @company.timing["#{day}_opening_time"] != nil
+				%span.head.pull-left #{day}
+				%span.detail.pull-right
+					%i.fa.fa-clock-o>
+					#{@company.timing["#{day}_opening_time"]} - #{@company.timing["#{day}_closing_time"]}

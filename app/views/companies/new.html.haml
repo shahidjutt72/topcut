@@ -2,8 +2,8 @@
 / = render 'form'
 / .push
 -first_condition = current_user.company
--second_condition = (current_user.company and !current_user.company.timing)
--third_condition = (current_user.company and current_user.company.timing and current_user.company.staffs.length == 0)
+-second_condition = (current_user.company and !current_user.company.timing.mon_opening_time)
+-third_condition = (current_user.company and current_user.company.timing.mon_opening_time and current_user.company.staffs.length == 0)
 -fourth_condition = (current_user.company and current_user.company.timing and current_user.company.staffs.length > 0 and current_user.company.services.length == 0)
 -fifth_condition = (current_user.company and current_user.company.timing and current_user.company.staffs.length > 0 and current_user.company.services.length > 0)
 .push

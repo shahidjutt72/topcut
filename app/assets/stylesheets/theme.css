@@ -398,7 +398,7 @@ li {
 
 .tabs-left, .tabs-right {
     border-bottom: none;
-    padding-top: 148px;
+    /*padding-top: 148px;*/
 }
 
 .tabs-left {
@@ -500,4 +500,7 @@ a.pink_button_active {
 .message_box .message{ margin:0 auto;float:none;}
 .navbar-fixed-top{
     position: relative;
+}
+.customers_tab_padding{
+    padding-top: 148px;
 }

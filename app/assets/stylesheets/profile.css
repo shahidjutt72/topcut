@@ -1,0 +1,297 @@
+﻿body {
+    background: none repeat scroll 0 0 #e1e7eb;
+}
+
+a {
+    color: #808080;
+}
+
+.content {
+    min-height: 603px !important;
+}
+
+.push {
+    height: 77px;
+}
+
+.tab-pane {
+    min-height: 100%;
+}
+
+.tab-content {
+    min-height: 610px;
+}
+
+.tab-big {
+    display: block;
+    font-size: 2em;
+}
+
+.nav.nav-tabs.tabs-left > li:first-child {
+    padding-top: 65px;
+}
+
+.tab-pane h3 {
+    border-bottom: 1px solid #b5c8da;
+    box-shadow: 0 1px 0 #fff;
+    color: #7a8d9f;
+    font-family: Calibri;
+    font-weight: lighter;
+    margin: 25px 0 10px 0;
+    text-shadow: 1px 1px 1px #ffffff;
+}
+
+.tab-pane h5 {
+    box-shadow: 0 1px 0 #fff;
+    color: #7a8d9f;
+    font-family: Calibri;
+    font-weight: lighter;
+    margin: 0 0 25px 0;
+    text-shadow: 1px 1px 1px #ffffff;
+}
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #f1f5f7;
+    border-color: #ddd #ddd transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    color: #555555;
+    cursor: default;
+}
+
+.tabs-left > li.active > a, .tabs-left > li.active > a:hover, .tabs-left > li.active > a:focus {
+    border-bottom-color: #ddd;
+    border-right-color: transparent;
+    box-shadow: 0 5px 0 #B1B7BB;
+}
+
+/* Misc */
+.left-none {
+    margin-left: 0 !important;
+}
+
+.borderd {
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.level2-content {
+    background: #F1F5F7;
+    padding: 0 0 0 20px;
+}
+
+.level3-content {
+    box-shadow: -4px 0 11px #d6dce0;
+    padding: 0 20px;
+}
+
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover,
+.nav-pills > .active > a:focus {
+    color: #ffffff;
+    background-color: #96A9BC;
+    box-shadow: 0 0 2px #4a5d70 inset;
+}
+
+.nav .nav-pills .nav-stacked .side-list a {
+    color: #808080;
+}
+
+
+.form-horizontal .control-group:first-child {
+    border-bottom: 1px solid #C5C5C5;
+    margin-bottom: 25px !important;
+    padding: 10px 0;
+}
+
+.control-group .controls > #inputName, .control-group .controls > #inputTemp, .controls > button {
+    margin-top: 40px;
+}
+
+.form-horizontal .control-label {
+    float: left;
+    font-family: calibri;
+    font-size: 17px;
+    padding-top: 5px;
+    text-align: right;
+    width: 160px;
+    color: #808080;
+}
+
+.controls > input, .controls > textarea {
+    width: 265px;
+}
+
+input[type="text"], textarea {
+    border-radius: 0 !important;
+    padding: 0 6px !important;
+    min-height: 28px;
+}
+
+.input-medium {
+    width: 76px !important;
+}
+
+select {
+    border-radius: 0 !important;
+    padding: 5px !important;
+    width: 279px;
+}
+
+.form-horizontal .control-group {
+    margin-bottom: 5px !important;
+}
+
+.padded-none {
+    padding: 0 !important;
+}
+
+.row-fluid.line {
+    padding: 5px;
+    border-bottom: 1px dashed #ddd;
+    color: #808080;
+}
+
+    .row-fluid.line [class*="span"] {
+        min-height: 20px;
+    }
+
+
+.media a > img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 2px solid #96A9BC;
+    height: 30px;
+    padding: 5px;
+    width: 30px;
+}
+
+.media-list {
+    list-style: none outside none;
+    margin: 20px 5px !important;
+}
+
+    .media-list > li {
+        border-bottom: 1px dotted #c5c5c5;
+        padding: 3px 5px;
+    }
+
+.media-heading {
+    color: #96A9BC;
+    font-family: calibri;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px #fff;
+    font-weight: lighter;
+    margin: 0;
+}
+
+.media-body p, .media-body a {
+    color: #ACBFD2;
+}
+
+.media-body p {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.media p.review {
+    display: block;
+    color: #96A9BC;
+    font-size: 12px;
+}
+
+.bussiness-schedual > li {
+    display: block;
+    padding: 12px;
+    color: #ACBFD2;
+}
+
+    .bussiness-schedual > li span:first-child {
+        font-weight: 600;
+        color: #96A9BC;
+    }
+
+    .bussiness-schedual > li span > i {
+        margin-right: 5px;
+    }
+
+.appointment-tabs li {
+    width: 20%;
+    text-align: center;
+}
+
+.service-head {
+    border-bottom: 0 !important;
+    box-shadow: 0 1px 0 #fff;
+    color: #7a8d9f;
+    font-family: Calibri;
+    font-weight: lighter;
+    text-shadow: 1px 1px 1px #ffffff;
+    margin: 0 !important;
+}
+
+.service-list > li {
+    border-top: 1px dotted #7a8d9f;
+    display: block;
+    float: left;
+    padding: 10px 5px;
+    width: 100%;
+}
+
+    .service-list > li:nth-child(2n+1) {
+        background: #f7f7f7;
+    }
+
+    .service-list > li:last-child {
+        border-bottom: 1px dotted #7a8d9f;
+    }
+
+    .service-list > li span.time {
+        margin-right: 40px;
+    }
+
+    .service-list > li span.amount {
+        margin-right: 20px;
+    }
+
+    .service-list > li:hover {
+        background: #E1E7EB;
+        cursor: pointer;
+    }
+
+.controls > .control-label {
+    padding-left: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+.time-list {
+    width: 100%;
+}
+
+    .time-list th {
+        text-align: center;
+        font-weight: normal;
+        padding: 5px;
+        border-bottom: 1px solid #b5c8da;
+    }
+
+    .time-list td a {
+        display: block;
+        text-align: center;
+        padding: 5px;
+        border-bottom: 1px dotted #b5c8da;
+    }
+
+        .time-list td a:hover{
+            background: #96A9BC;
+            color: #ffffff;
+        }
+.ui-datepicker-inline{
+    display: block !important;
+}

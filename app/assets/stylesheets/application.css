@@ -14,7 +14,8 @@
  *= require font-awesome
  *= require theme
  *= require onepage-scroll
-*= require jquery.weekcalendar
+ *= require jquery.weekcalendar
  *= require select
  *= require bootstrap-timepicker
+
  */
