@@ -194,3 +194,6 @@ section .row-fluid > footer {
     text-align: center;
     color: #A8A8A7;
 }
+.btn-big{
+    width:120px;
+}
