@@ -5,9 +5,10 @@
 	-#%script{src: "/assets/jquery-1.7.2.min.js"}
 	-#%script{src: "/assets/jquery-ui.min.js"}
 	-#%script{:type=>'text/javascript', :src=>'/assets/jquery.weekcalendar.js'}
-	-if current_user and current_user.company 
+	-if current_user and @company
 		%link{:href =>"/assets/demo.css", :rel =>"stylesheet"}
 		%script{src: "/assets/demo.js"}
+		= select_tag "staff_name", options_from_collection_for_select(@company.staffs,"id","name",params[:staff]),:style =>"margin:20px;margin-bottom:-43px;width:100px;", :prompt =>"All"
 		%div{:id=> 'calendar'}
 		#event_edit_container{:style =>"top:9.304688px;z-index:10000;"}
 			= form_for @slot, :html =>{:class =>"create_new_slot"} do |f|
@@ -52,12 +53,18 @@
 			-@services.all.each do |s|
 				service_time["#{s.id}"] = "#{s.service_time ? s.service_time : 0}"
 				service_cost["#{s.id}"] = "#{s.cost ? s.cost : 0}"
-			-@company.slots.each do |slot|
-				hash = {"id": "#{slot.id}","start": new Date("#{slot.slot_start_time.year}","#{slot.slot_start_time.month-1}", "#{slot.slot_start_time.day}", "#{slot.slot_start_time.hour}","#{slot.slot_start_time.min}"), "end": new Date("#{slot.slot_end_time.year}","#{slot.slot_end_time.month-1}", "#{slot.slot_end_time.day}", "#{slot.slot_end_time.hour-7}","#{slot.slot_end_time.min}"),"title": "#{slot.service.name} $#{slot.service.cost}"}
+			-@slots.each do |slot|
+				-start_time  = slot.slot_start_time.in_time_zone("Pacific Time (US & Canada)")
+				-end_time  = slot.slot_end_time.in_time_zone("Pacific Time (US & Canada)")
+				hash = {"id": "#{slot.id}","start": new Date("#{start_time.year}","#{start_time.month-1}", "#{start_time.day}", "#{start_time.hour}","#{start_time.min}"), "end": new Date("#{end_time.year}","#{end_time.month-1}", "#{end_time.day}", "#{end_time.hour}","#{end_time.min}"),"title": "#{slot.service.name} $#{slot.service.cost}"}
 				slots_arr.push(hash);
 		:javascript
 			$(document).ready(function() {								
-
+				$('#staff_name').change(function(){
+				staff_id = $(this).val();
+				url = window.location.origin+"?staff="+staff_id				
+				window.location.href = url;
+				})
 			 var $calendar = $('#calendar');
 			 var id = 10;
 
@@ -293,4 +300,4 @@
 			 });
 
 
-			});
+			});			
