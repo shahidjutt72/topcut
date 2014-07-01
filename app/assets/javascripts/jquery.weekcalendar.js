@@ -600,9 +600,9 @@
 
          var eventClass, eventHtml, $calEvent, $modifiedEvent;
 
-         eventClass = calEvent.id ? "wc-cal-event" : "wc-cal-event wc-new-cal-event";
+         eventClass = calEvent.id ? calEvent.color_class+" "+"wc-cal-event" : "wc-cal-event wc-new-cal-event";
          eventHtml = "<div class=\"" + eventClass + " ui-corner-all\">\
-                <div class=\"wc-time ui-corner-all\"></div>\
+                <div class=\""+calEvent.color_class+" "+"wc-time ui-corner-all\"></div>\
                 <div class=\"wc-title\"></div></div>";
 
          $calEvent = $(eventHtml);

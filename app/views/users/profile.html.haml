@@ -49,27 +49,28 @@
 									%h3 Book Appointment
 									%ul#Ul5.nav.nav-tabs.appointment-tabs
 										%li.active
-											%a{"data-toggle" => "tab", :href => "#b_service"}
+											%a{"data-toggle" => "tab", :href => "#b_service", :class =>"services_tab" ,:style=>"display:none;"}
+											%a{"data-toggle" => "tab", :href => "#b_service"}	
 												%span> Service
 												\&nbsp;&nbsp;
 												%i.fa.fa-chevron-right
 										%li
-											%a{"data-toggle" => "tab", :href => "#b_provider"}
+											%a{"data-toggle" => "tab", :href => "#b_provider", :class =>"staffs_tab"}
 												%span> Provider
 												\&nbsp;&nbsp;
 												%i.fa.fa-chevron-right
 										%li
-											%a{"data-toggle" => "tab", :href => "#b_date"}
+											%a{"data-toggle" => "tab", :href => "#b_date", :class =>"date_tab"}
 												%span> Date
 												\&nbsp;&nbsp;
 												%i.fa.fa-chevron-right
 										%li
-											%a#A5{"data-toggle" => "tab", :href => "#b_info"}
+											%a#A5{"data-toggle" => "tab", :href => "#b_info", :class =>"customer_tab"}
 												%span> Your Info
 												\&nbsp;&nbsp;
 												%i.fa.fa-chevron-right
 										%li
-											%a#A6{"data-toggle" => "tab", :href => "#b_confirm"}
+											%a#A6{"data-toggle" => "tab", :href => "#b_confirm", :class =>"confirm_tab"}
 												%span> Confirm
 												\&nbsp;&nbsp;
 												%i.fa.fa-chevron-right
@@ -86,7 +87,7 @@
 											.padded-pane
 												%ul.service-list
 													-@company.services.each do |service|
-														%li
+														%li{:class =>"select_service"}
 															%a
 																%span.pull-left #{service.name}
 																%span.pull-right.amount
@@ -101,7 +102,7 @@
 												.span8
 													%ul.media-list
 														-@company.staffs.each do |staff|
-															%li.media
+															%li.media{:class =>"select_staff"}
 																%a.pull-left{:href => "#"}
 																	%img.img-circle{:src => "/assets/user.png", :width => "50"}
 																.media-body
@@ -536,4 +537,10 @@
 				$('#calendar-field').change(function () {
 						$('#calendar').datepicker('setDate', $(this).val());
 				});
+		});
+		$('.select_service').click(function(e){
+			$('.staffs_tab').click();	
+		});
+		$('.select_staff').click(function(e){
+			$('.date_tab').click();
 		});

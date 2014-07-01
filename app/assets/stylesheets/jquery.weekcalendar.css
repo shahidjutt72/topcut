@@ -169,7 +169,7 @@ table.wc-time-slots {
 
 .wc-cal-event .wc-time {
 	background-color: #2b72d0;
-	border: 1px solid #1b62c0;
+	border: 1px solid white;
 	color: #fff;
 	padding: 0;
 	font-weight: bold;
@@ -191,4 +191,23 @@ table.wc-time-slots {
 
 .wc-container .ui-draggable-dragging {
    z-index: 1000;
+}
+.yellow{
+	background-color: yellow !important;
+}
+.red{
+	background-color: red !important;
+}
+.green{
+	background-color: green !important;
+}
+.pink{
+	background-color: pink !important;
+}
+.blue
+{
+	background-color: blue !important;
+}
+.orange{
+	background-color: orange !important;
 }

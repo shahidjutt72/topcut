@@ -66,8 +66,8 @@
 										-day_groups.each do |day|
 											.span4.day
 												%a #{day[0]}
-												= eval("time.text_field :#{day[1]}_opening_time, :class =>'start_end_time timepicker input-small'")
-												= eval("time.text_field :#{day[1]}_closing_time, :class =>'start_end_time timepicker input-small'")																			
+												= eval("time.text_field :#{day[1]}_opening_time, :class =>'start_end_time timepicker input-small', :value =>'09:00 AM'")
+												= eval("time.text_field :#{day[1]}_closing_time, :class =>'start_end_time timepicker input-small', :value =>'09:00 PM'")																			
 				.arrow-up.company_third_step_arrow{:style=>"margin-left:250px;",:class =>"#{third_condition ? '' : 'hide'}"}
 				%section.staff.section.company_third_step{:class =>"#{third_condition ? '' : 'hide'}"}
 					%header
@@ -81,7 +81,7 @@
 							.row-fluid.add_staff_new
 								= f.fields_for :staffs, @staffs do |staff|
 									.span4
-										= staff.text_field :name, :class =>"input input-block-level",:placeholder => "Name"
+										= staff.text_field :name, :class =>"input input-block-level",:placeholder => "Name", :required =>"required"
 										-#%input.input.input-block-level{placeholder: "Name", type: "text"}/
 									.span3
 										= staff.text_field :email, :class =>"input input-block-level",:placeholder => "Email"
@@ -105,16 +105,18 @@
 					.container-fluid
 						= form_for(@company, :url =>update_company_attrs_companies_path, :html =>{:class =>"update_services"}) do |f|						
 							.add_service_new
-								.row-fluid
+								.row-fluid{:style =>"width:92%;"}
 									= f.fields_for :services, @services do |ser|
-										.span4
-											= ser.text_field :name, :class =>"input input-block-level",:placeholder =>"Service Name"
+										.span2{:style =>"margin-right:-18px;margin-left:-48px;"}
+											= ser.select :color_code, options_for_select([['Yellow','yellow'],['Green','green'],['Red','red'],['Pink','pink'],['Blue','blue'],["Orange","orange"]],"Red"),{}, :style =>"width:50px;"										
+										.span4	
+											= ser.text_field :name, :class =>"input input-block-level",:placeholder =>"Service Name", :required =>"required"
 											-#%input.input.input-block-level{placeholder: "Service Name", type: "text"}/
 										.span2
-											= ser.text_field :service_time, :class =>"input input-block-level",:placeholder =>"0 mins"
+											= ser.text_field :service_time, :class =>"input input-block-level",:placeholder =>"0 mins", :required =>"required"
 											-#%input.input.input-block-level{placeholder: "0 mins", type: "text"}/
 										.span2
-											= ser.text_field :cost, :class =>"input input-block-level",:placeholder =>"$ 0"
+											= ser.text_field :cost, :class =>"input input-block-level",:placeholder =>"$ 0", :required =>"required"
 											-#%input.input.input-block-level{placeholder: "$ 0", type: "text"}/
 										.span2
 											.btn-block.btn-group
@@ -126,10 +128,10 @@
 													%li
 														%a{href: "#"} All
 										= hidden_field_tag "loop_value_service", "#{@company.staffs.length}"
-										.span2
+										.span2{:style =>"width:11.529915%"}
 											%button.btn.btn-block.btn-success.add_more_service_button
 												%i.fa.fa-plus
-												\ Add
+												\ Add																		
 				.arrow-up.company_fifth_step_arrow{:style=>"margin-left:464px;",:class =>"#{fifth_condition ? '' : 'hide'}"}
 				%section.done.services.section.company_fifth_step{:class =>"#{fifth_condition ? '' : 'hide'}"}
 					%header
@@ -199,27 +201,33 @@
 			}
 			//$('.add_staff_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" placeholder="Name" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" placeholder="Email" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" placeholder="Phone" type="text"></div><div class="span2"><button class="btn btn-block btn-success add_more_button"><i class="fa fa-plus"></i>&nbsp;Add</button></div></div>');
 
-			$('.add_staff_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" placeholder="Name" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" placeholder="Email" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" placeholder="Phone" type="text"></div>');
+			$('.add_staff_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" required="required" placeholder="Name" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" placeholder="Email" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" placeholder="Phone" type="text"></div><div class="span2"><div class="btn btn-block btn-success remove_staff_button">Remove</div></div>');
 			len_2 = parseInt(len);
 			len_2 = len_2 + 1;
 			$('#loop_value').val(len_2);
 			event.preventDefault();
+			$('.remove_staff_button').click(function(e){
+				$(this).parent().parent().remove()
+				e.preventDefault();
+			})
 		});
 
 		$('.update_company_staffs').click(function(e){
-			if($('#company_staffs_attributes_0_name').val() != "" && $('#company_staffs_attributes_0_email').val() != ""){
-				$.get('/companies/update_company_attrs', $('.update_staffs').serialize(),function(data){
-					$('.company_third_step_main').removeClass('active')
-					$('.company_fourth_step_main').addClass('active')
-					$('.company_third_step').hide();
-					$('.company_third_step_arrow').hide();
-					$('.company_fourth_step').show();
-					$('.company_fourth_step_arrow').show();
-				});
-			}
-			else
-			{
-				alert('Please provide the information first');
+			if($('.update_staffs').valid()){			
+				if($('#company_staffs_attributes_0_name').val() != ""){
+					$.get('/companies/update_company_attrs', $('.update_staffs').serialize(),function(data){
+						$('.company_third_step_main').removeClass('active')
+						$('.company_fourth_step_main').addClass('active')
+						$('.company_third_step').hide();
+						$('.company_third_step_arrow').hide();
+						$('.company_fourth_step').show();
+						$('.company_fourth_step_arrow').show();
+					});
+				}
+				else
+				{
+					alert('Please provide the information first');
+				}	
 			}	
 			e.preventDefault();
 		})
@@ -231,28 +239,34 @@
 			len = 1;
 			}
 			
-			$('.add_service_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_services_attributes_'+len+'_name" name="company[services_attributes]['+len+'][name]" placeholder="Service Name" type="text"></div><div class="span2"><input class="input input-block-level" id="company_services_attributes_'+len+'_service_time" name="company[services_attributes]['+len+'][service_time]" placeholder="0 mins" type="text"></div><div class="span2"><input class="input input-block-level" id="company_services_attributes_'+len+'_cost" name="company[services_attributes]['+len+'][cost]" placeholder="$ 0" type="text"></div><div class="span2"><div class="btn-block btn-group"><div class="btn btn-info"><i class="fa fa-user"></i></div><div class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></div><ul class="dropdown-menu"><li><a href="#">All</a></li></ul></div></div></div>');
+			$('.add_service_new').append('<div class="row-fluid" style="width:92%;"><div class="span2" style="margin-right:-18px;margin-left:-48px;"><select id="company_services_attributes_'+len+'_color_code" name="company[services_attributes]['+len+'][color_code]" style="width:50px;"><option value="yellow">Yellow</option><option value="green">Green</option><option value="red">Red</option><option value="pink">Pink</option><option value="blue">Blue</option></select></div><div class="span4"><input class="input input-block-level" id="company_services_attributes_'+len+'_name" name="company[services_attributes]['+len+'][name]" required="required" placeholder="Service Name" type="text"></div><div class="span2"><input class="input input-block-level" id="company_services_attributes_'+len+'_service_time" name="company[services_attributes]['+len+'][service_time]" required="required" placeholder="0 mins" type="text"></div><div class="span2"><input class="input input-block-level" id="company_services_attributes_'+len+'_cost" name="company[services_attributes]['+len+'][cost]" required="required" placeholder="$ 0" type="text"></div><div class="span2"><div class="btn-block btn-group"><div class="btn btn-info"><i class="fa fa-user"></i></div><div class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></div><ul class="dropdown-menu"><li><a href="#">All</a></li></ul></div></div><div class="span2" style="width:11.5%;"><div class="btn btn-block btn-success remove_service_button">Remove</div></div></div>');
 			len_2 = parseInt(len);
 			len_2 = len_2 + 1;
 			$('#loop_value_service').val(len_2);
 			event.preventDefault();
+			$('.remove_service_button').click(function(e){
+				$(this).parent().parent().remove()
+				e.preventDefault();
+			})
 		});
 
 		$('.update_company_services').click(function(e){
-			if($('#company_services_attributes_0_name').val() != "" && $('#company_services_attributes_0_service_time').val() != ""){
-				$.get('/companies/update_company_attrs', $('.update_services').serialize(),function(data){
-					$('.company_fourth_step_main').removeClass('active')
-					$('.company_fifth_step_main').addClass('active')
-					$('.company_fourth_step').hide();
-					$('.company_fourth_step_arrow').hide();
-					$('.company_fifth_step').show();
-					$('.company_fifth_step_arrow').show();
-				});
-			}
-			else
-			{
-				alert('Please provide the information first');
-			}	
+			if($('.update_services').valid()){			
+				if($('#company_services_attributes_0_name').val() != "" && $('#company_services_attributes_0_service_time').val() != ""){
+					$.get('/companies/update_company_attrs', $('.update_services').serialize(),function(data){
+						$('.company_fourth_step_main').removeClass('active')
+						$('.company_fifth_step_main').addClass('active')
+						$('.company_fourth_step').hide();
+						$('.company_fourth_step_arrow').hide();
+						$('.company_fifth_step').show();
+						$('.company_fifth_step_arrow').show();
+					});
+				}
+				else
+				{
+					alert('Please provide the information first');
+				}
+			}		
 			e.preventDefault();
 		})
 	});

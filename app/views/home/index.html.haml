@@ -8,7 +8,7 @@
 	-if current_user and @company
 		%link{:href =>"/assets/demo.css", :rel =>"stylesheet"}
 		%script{src: "/assets/demo.js"}
-		= select_tag "staff_name", options_from_collection_for_select(@company.staffs,"id","name",params[:staff]),:style =>"margin:20px;margin-bottom:-43px;width:100px;", :prompt =>"All"
+		= select_tag "staff_name", options_from_collection_for_select(@company.staffs,"id","name",params[:staff]),:style =>"margin:20px;margin-bottom:-43px;width:100px;", :prompt =>"All Staffs"
 		%div{:id=> 'calendar'}
 		#event_edit_container{:style =>"top:9.304688px;z-index:10000;"}
 			= form_for @slot, :html =>{:class =>"create_new_slot"} do |f|
@@ -35,11 +35,11 @@
 						%label{for: "services"} Customer Name:
 						= text_field_tag "cust_name", "",:required => "required"
 					%li.li_margins
-						%label{for: "services"} Customer Email:
-						= text_field_tag "cust_email", "",:required => "required"
-					%li.li_margins
 						%label{for: "services"} Mobile Phone:
 						= text_field_tag "cust_mobile", "",:required => "required"
+					%li.li_margins
+						%label{for: "services"} Customer Email:
+						= text_field_tag "cust_email", ""					
 					%li.li_margins
 						%label{for: "services"} Address:
 						= text_field_tag "cust_address", ""
@@ -56,7 +56,7 @@
 			-@slots.each do |slot|
 				-start_time  = slot.slot_start_time.in_time_zone("Pacific Time (US & Canada)")
 				-end_time  = slot.slot_end_time.in_time_zone("Pacific Time (US & Canada)")
-				hash = {"id": "#{slot.id}","start": new Date("#{start_time.year}","#{start_time.month-1}", "#{start_time.day}", "#{start_time.hour}","#{start_time.min}"), "end": new Date("#{end_time.year}","#{end_time.month-1}", "#{end_time.day}", "#{end_time.hour}","#{end_time.min}"),"title": "#{slot.service.name} $#{slot.service.cost}"}
+				hash = {"id": "#{slot.id}","color_class": "#{slot.service.color_code}","start": new Date("#{start_time.year}","#{start_time.month-1}", "#{start_time.day}", "#{start_time.hour}","#{start_time.min}"), "end": new Date("#{end_time.year}","#{end_time.month-1}", "#{end_time.day}", "#{end_time.hour}","#{end_time.min}"),"title": "#{slot.service.name} $#{slot.service.cost}"}
 				slots_arr.push(hash);
 		:javascript
 			$(document).ready(function() {								
@@ -73,7 +73,7 @@
 					allowCalEventOverlap : true,
 					overlapEventsSeparate: true,
 					firstDayOfWeek : 1,
-					businessHours :{start: 8, end: 18, limitDisplay: true },
+					businessHours :{start: 9, end: 21, limitDisplay: true },
 					daysToShow : 7,
 					height : function($calendar) {
 						 return $(window).height() - $("h1").outerHeight() - 1;
@@ -83,7 +83,7 @@
 								$event.css("backgroundColor", "#aaa");
 								$event.find(".wc-time").css({
 									 "backgroundColor" : "#999",
-									 "border" : "1px solid #888"
+									 "border" : "1px solid white"
 								});
 						 }
 					},

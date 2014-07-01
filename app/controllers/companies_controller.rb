@@ -107,6 +107,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:id,:name, :business_type, :user_id, :timing_attributes =>[:sun_opening_time, :sun_closing_time, :is_on_sun, :mon_opening_time, :mon_closing_time, :is_on_mon, :tue_opening_time, :tue_closing_time, :is_on_tue, :wed_opening_time, :wed_closing_time, :is_on_wed, :thu_opening_time, :thu_closing_time, :is_on_thu, :fri_opening_time, :fri_closing_time, :is_on_fri, :sat_opening_time, :sat_closing_time, :is_on_sat, :company_id], :staffs_attributes =>[:name, :email, :phone, :id], :services_attributes =>[:name, :service_time, :cost, :id, :staffs_attributes =>[:staff_id, :service_id]])
+      params.require(:company).permit(:id,:name, :business_type, :user_id, :timing_attributes =>[:sun_opening_time, :sun_closing_time, :is_on_sun, :mon_opening_time, :mon_closing_time, :is_on_mon, :tue_opening_time, :tue_closing_time, :is_on_tue, :wed_opening_time, :wed_closing_time, :is_on_wed, :thu_opening_time, :thu_closing_time, :is_on_thu, :fri_opening_time, :fri_closing_time, :is_on_fri, :sat_opening_time, :sat_closing_time, :is_on_sat, :company_id], :staffs_attributes =>[:name, :email, :phone, :id], :services_attributes =>[:name,:color_code, :service_time, :cost, :id, :staffs_attributes =>[:staff_id, :service_id]])
     end
 end

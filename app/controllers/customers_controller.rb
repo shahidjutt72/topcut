@@ -26,7 +26,7 @@ class CustomersController < ApplicationController
   # POST /customers.json
   def create
     # @customer = Customer.new(customer_params)
-    @customer = Customer.find_or_create_by_email_and_mobile_phone(customer_params[:email],customer_params[:mobile_phone])
+    @customer = Customer.find_or_create_by_mobile_phone(customer_params[:mobile_phone])
 
     respond_to do |format|
       if @customer.update_attributes(customer_params)
