@@ -87,7 +87,7 @@
 											.padded-pane
 												%ul.service-list
 													-@company.services.each do |service|
-														%li{:class =>"select_service"}
+														%li{:class =>"select_service", :service_id => service.id , :service_time => service.service_time, :cost => service.cost}
 															%a
 																%span.pull-left #{service.name}
 																%span.pull-right.amount
@@ -102,7 +102,7 @@
 												.span8
 													%ul.media-list
 														-@company.staffs.each do |staff|
-															%li.media{:class =>"select_staff"}
+															%li.media{:class =>"select_staff",:staff_id => staff.id}
 																%a.pull-left{:href => "#"}
 																	%img.img-circle{:src => "/assets/user.png", :width => "50"}
 																.media-body
@@ -173,31 +173,42 @@
 														= render :partial =>"company_timing"
 										#b_info.tab-pane
 											.padded-pane
-												%form.form-horizontal
+												= form_for @slot, :html =>{:class =>"create_new_slot_profile form-horizontal"} do |f|												
+													= f.hidden_field :service_time
+													= f.hidden_field :cost
+													= f.hidden_field :slot_start_time, :value =>Time.now-6.hours
+													= f.hidden_field :slot_end_time, :value =>(Time.now-6.hours)+60.minutes
+													= f.hidden_field :service_id
+													= f.hidden_field :staff_id
 													.control-group
 														%label.control-label{:for => "inputEmail"} Full Name
 														.controls
-															%input#Text1{:placeholder => "Full Name (e.g. Atif Farooq)", :type => "text"}
+															= text_field_tag "cust_name", "", :placeholder =>"Full Name (e.g. Atif Farooq)",:required => "required"
+															-#%input#Text1{:placeholder => "Full Name (e.g. Atif Farooq)", :type => "text"}
 													.control-group
 														%label.control-label{:for => "inputMobile"} Mobile
 														.controls
-															%input#Text2{:placeholder => "Mobile", :type => "text"}
+															= text_field_tag "cust_mobile", "", :placeholder =>"Mobile",:required => "required"
+															-#%input#Text2{:placeholder => "Mobile", :type => "text"}
 													.control-group
 														%label.control-label{:for => "inputOffice"} Email
 														.controls
-															%input#Text3{:placeholder => "Email", :type => "text"}
+															= text_field_tag "cust_email", "", :placeholder =>"Email"
+															-#%input#Text3{:placeholder => "Email", :type => "text"}
 													.control-group
 														%label.control-label{:for => "inputAddress"} Address
 														.controls
-															%textarea#Textarea1{:placeholder => "Address", :rows => "5"}
+															= text_area_tag "cust_address", "", :placeholder =>"Address", :rows =>5
+															-#%textarea#Textarea1{:placeholder => "Address", :rows => "5"}
 													.control-group
 														%label.control-label{:for => "inputAddress"} Comments
 														.controls
-															%textarea#Textarea2{:placeholder => "Comments", :rows => "5"}
+															= f.text_area :notes, :placeholder =>"Comments", :rows =>5
+															-#%textarea#Textarea2{:placeholder => "Comments", :rows => "5"}
 													.control-group
 														%label.control-label.hidden{:for => "inputAddress"} -
 														.controls
-															%button.btn.btn-large.btn-info
+															.btn.btn-large.btn-info
 																%i.fa.fa-check>
 																\&nbsp;&nbsp;Continue
 										#b_confirm.tab-pane
@@ -207,23 +218,23 @@
 													.control-group
 														%label.control-label{:for => "inputEmail"} Full Name
 														.controls
-															%label.control-label Atif Farooq Siddiqui
+															%label.control-label.cust_name 
 													.control-group
 														%label.control-label{:for => "inputMobile"} Mobile
 														.controls
-															%label.control-label +92 322 8045299
+															%label.control-label.cust_mobile
 													.control-group
 														%label.control-label{:for => "inputOffice"} Email
 														.controls
-															%label.control-label Atifarooq@gmail.com
+															%label.control-label.cust_email
 													.control-group
 														%label.control-label{:for => "inputAddress"} Address
 														.controls
-															%label.control-label House # 123, Abc Town Def Road, Faisalabad
+															%label.control-label.cust_address
 													.control-group
 														%label.control-label{:for => "inputAddress"} Comments
 														.controls
-															%label.control-label Atif is very good boy and having creative skills :)
+															%label.control-label.comments
 													.control-group
 														%label.control-label.hidden{:for => "inputAddress"} -
 														.controls
@@ -539,8 +550,38 @@
 				});
 		});
 		$('.select_service').click(function(e){
+			$('#slot_service_id').val($(this).attr('service_id'))
+			$('#slot_service_time').val($(this).attr('service_time'))
+			$('#slot_cost').val($(this).attr('cost'))
 			$('.staffs_tab').click();	
 		});
 		$('.select_staff').click(function(e){
+			$('#slot_staff_id').val($(this).attr('staff_id'))			
 			$('.date_tab').click();
 		});
+		$('.btn-info').click(function(e){
+			if($('.create_new_slot_profile').valid()){
+				$('.confirm_tab').click();
+			}
+			e.preventDefault();
+		})
+		$('#cust_name').change(function(){
+			
+			$('.cust_name').text($(this).val())
+		})
+		$('#cust_mobile').change(function(){
+			$('.cust_mobile').text($(this).val())
+		})
+		$('#cust_email').change(function(){
+			$('.cust_email').text($(this).val())
+		})
+		$('#cust_address').change(function(){
+			$('.cust_address').text($(this).val())
+		})
+		$('#slot_notes').change(function(){
+			$('.comments').text($(this).val())
+		})		
+		$('.btn-success').click(function(e){
+			$('.create_new_slot_profile').submit();
+			e.preventDefault();
+		})

@@ -4,14 +4,14 @@ class SlotsController < ApplicationController
 		@slot.company_id = @company.id
 		cust = Customer.find_or_create_by_mobile_phone_and_company_id(params[:cust_mobile],@company.id)
 		cust.name = params[:cust_name]
-		cust.email = params[:email]
+		cust.email = params[:cust_email]
 		cust.address = params[:cust_address]
 		cust.city = params[:cust_city]
 		cust.save
 		@slot.customer_id = cust.id
 		@slot.save
 		
-		redirect_to "/", :notice =>"Apointment Successfully Added"		
+		redirect_to request.referrer, :notice =>"Apointment Successfully Added"		
 	end
 	private
     
