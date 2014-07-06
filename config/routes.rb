@@ -10,7 +10,8 @@ Topcut::Application.routes.draw do
     collection do
       get 'update_company_attrs'
     end  
-  end  
+  end
+  match "/bookingpage/:id" =>"companies#show", :via =>"get"  
 
   resources :customers do
     member do
@@ -30,7 +31,8 @@ Topcut::Application.routes.draw do
   resources :users do
     collection do
       get "settings"
-      get "profile"      
+      get "profile"
+      get "get_calendar_updates"      
     end  
   end
   match "/settings" =>"users#settings", :via => "get"  

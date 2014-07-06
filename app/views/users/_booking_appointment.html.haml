@@ -1,0 +1,378 @@
+.span3
+	%h3
+		= @company.name
+	%ul#Ul4.nav.nav-pills.nav-stacked.side-list
+		%li.active
+			%a{"data-toggle" => "tab", :href => "#appointment"}
+				%i.icon-desktop
+				%span Book Appointment
+		%li
+			%a{"data-toggle" => "tab", :href => "#staff"}
+				%i.icon-facebook-sign
+				%span Staff Members
+		%li
+			%a{"data-toggle" => "tab", :href => "#service"}
+				%i.icon-bar-chart
+				%span Services
+		%li
+			%a#A4{"data-toggle" => "tab", :href => "#reviw"}
+				%i.icon-maxcdn
+				%span Reviews
+.span9
+	.tab-content.level3-content
+		-if !(params[:controller]=="companies" and params[:action]=="show")
+			%b{:style =>"font-size:20px;margin-top:12px;"} Your Booking page:
+			%a{:href => "/bookingpage/#{@company.id}", :target =>"blank"}
+				%b http://#{request.host_with_port}/bookingpage/#{@company.id}
+
+		#appointment.tab-pane.active
+			%h3 Book Appointment
+			%ul#Ul5.nav.nav-tabs.appointment-tabs
+				%li.active
+					%a{"data-toggle" => "tab", :href => "#b_service", :class =>"services_tab" ,:style=>"display:none;"}
+					%a{:style =>"cursor:default;"}	
+						%span{:class =>"services_tab_text"}> Service
+						\&nbsp;&nbsp;
+						%i.fa.fa-chevron-right
+				%li
+					%a{"data-toggle" => "tab", :href => "#b_provider", :class =>"staffs_tab",:style=>"display:none;"}
+					%a{:style =>"cursor:default;"}	
+						%span{:class =>"staffs_tab_text"}> Provider
+						\&nbsp;&nbsp;
+						%i.fa.fa-chevron-right
+				%li
+					%a{"data-toggle" => "tab", :href => "#b_date", :class =>"date_tab",:style=>"display:none;"}
+					%a{:style =>"cursor:default;"}
+						%span> Date
+						\&nbsp;&nbsp;
+						%i.fa.fa-chevron-right
+				%li
+					%a#A5{"data-toggle" => "tab", :href => "#b_info", :class =>"customer_tab",:style=>"display:none;"}
+					%a{:style =>"cursor:default;"}
+						%span> Your Info
+						\&nbsp;&nbsp;
+						%i.fa.fa-chevron-right
+				%li
+					%a#A6{"data-toggle" => "tab", :href => "#b_confirm", :class =>"confirm_tab",:style=>"display:none;"}
+					%a{:style =>"cursor:default;"}
+						%span> Confirm
+						\&nbsp;&nbsp;
+						%i.fa.fa-chevron-right
+			#progressbar
+				.progress
+					.bar.bar-info.progress-bar.progress-bar-info{:style => "width: 20%;"}
+					.bar.bar-warning.progress-bar.progress-bar-warning{:style => "width: 20%;"}
+					.bar.bar-primary.progress-bar.progress-bar-primary{:style => "width: 20%;"}
+					.bar.bar-danger.progress-bar.progress-bar-danger{:style => "width: 20%;"}
+					.bar.bar-success.progress-bar.progress-bar-success{:style => "width: 20%;"}
+			.tab-content
+				#b_service.tab-pane.active
+					%h3.service-head All Services
+					.padded-pane
+						%ul.service-list
+							-@company.services.each do |service|
+								%li{:class =>"select_service", :service_id => service.id , :service_time => service.service_time, :cost => service.cost,:service_name =>service.name}
+									%a
+										%span.pull-left #{service.name}
+										%span.pull-right.amount
+											%i.fa.fa-dollar>
+											\&nbsp;#{service.cost} $
+										%span.pull-right.time
+											%i.fa.fa-clock-o>
+											\&nbsp;#{service.service_time} minutes													
+				#b_provider.tab-pane
+					%h3.service-head All Providers
+					.row-fluid
+						.span8
+							%ul.media-list
+								-@company.staffs.each do |staff|
+									%li.media{:class =>"select_staff",:staff_id => staff.id, :staff_name =>staff.name}
+										%a.pull-left{:href => "#"}
+											%img.img-circle{:src => "/assets/user.png", :width => "50"}
+										.media-body
+											%h4.media-heading #{staff.name}
+											%p #{staff.email}, #{staff.phone}
+						.span4
+							.head-padded
+								= render :partial =>"users/company_timing"
+				#b_date.tab-pane
+					%h3.service-head Choose a Date and Time (GAMT)
+					.row-fluid
+						.span8
+							%input#calendar-field.hidden{:type => "text"}/
+							#calendar
+						.slot_timing_dynamic
+							= render :partial =>"users/slot_timings", :locals =>{:date => Date.today+1.day, :service =>@company.services.first}												
+					.row-fluid
+						.span6
+							.head-padded
+								= render :partial =>"users/company_timing"
+				#b_info.tab-pane
+					.padded-pane
+						= form_for @slot, :html =>{:class =>"create_new_slot_profile form-horizontal"} do |f|												
+							= hidden_field_tag "current_date", Date.today
+							= f.hidden_field :service_time
+							= f.hidden_field :cost
+							= f.hidden_field :slot_start_time#, :value =>Time.now-6.hours
+							= f.hidden_field :slot_end_time#, :value =>(Time.now-6.hours)+60.minutes
+							= f.hidden_field :service_id
+							= f.hidden_field :staff_id
+							.control-group
+								%label.control-label{:for => "inputEmail"} Full Name
+								.controls
+									= text_field_tag "cust_name", "", :placeholder =>"Full Name (e.g. Atif Farooq)",:required => "required"
+									-#%input#Text1{:placeholder => "Full Name (e.g. Atif Farooq)", :type => "text"}
+							.control-group
+								%label.control-label{:for => "inputMobile"} Mobile
+								.controls
+									= text_field_tag "cust_mobile", "", :placeholder =>"Mobile",:required => "required"
+									-#%input#Text2{:placeholder => "Mobile", :type => "text"}
+							.control-group
+								%label.control-label{:for => "inputOffice"} Email
+								.controls
+									= text_field_tag "cust_email", "", :placeholder =>"Email"
+									-#%input#Text3{:placeholder => "Email", :type => "text"}
+							.control-group
+								%label.control-label{:for => "inputAddress"} Address
+								.controls
+									= text_area_tag "cust_address", "", :placeholder =>"Address", :rows =>5
+									-#%textarea#Textarea1{:placeholder => "Address", :rows => "5"}
+							.control-group
+								%label.control-label{:for => "inputAddress"} Comments
+								.controls
+									= f.text_area :notes, :placeholder =>"Comments", :rows =>5
+									-#%textarea#Textarea2{:placeholder => "Comments", :rows => "5"}
+							.control-group
+								%label.control-label.hidden{:for => "inputAddress"} -
+								.controls
+									.btn.btn-large.btn-info
+										%i.fa.fa-check>
+										\&nbsp;&nbsp;Continue
+				#b_confirm.tab-pane
+					.padded-pane
+						%h3.service-head Confirm Your Information
+						%form.form-horizontal
+							.control-group
+								%label.control-label{:for => "inputEmail"} Full Name
+								.controls
+									%label.control-label.cust_name 
+							.control-group
+								%label.control-label{:for => "inputMobile"} Mobile
+								.controls
+									%label.control-label.cust_mobile
+							.control-group
+								%label.control-label{:for => "inputOffice"} Email
+								.controls
+									%label.control-label.cust_email
+							.control-group
+								%label.control-label{:for => "inputAddress"} Address
+								.controls
+									%label.control-label.cust_address
+							.control-group
+								%label.control-label{:for => "inputAddress"} Comments
+								.controls
+									%label.control-label.comments
+							.control-group
+								%label.control-label.hidden{:for => "inputAddress"} -
+								.controls
+									%button.btn.btn-large.btn-success
+										%i.fa.fa-calendar>
+										\&nbsp;&nbsp;Book My Appointment
+		#staff.tab-pane
+			%h3 Providers
+			.row-fluid
+				.span8
+					%ul.media-list
+						-@company.staffs.each do |staff|
+							%li.media
+								%a.pull-left{:href => "#"}
+									%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+								.media-body
+									%h4.media-heading #{staff.name}
+									%p #{staff.email}, #{staff.phone}
+				.span4
+					.head-padded
+						= render :partial =>"users/company_timing"												
+		#service.tab-pane
+			%h3 Services
+			.row-fluid
+				.span8
+					%ul.media-list
+						-@company.services.each do |service|
+							%li.media
+								%a.pull-left{:href => "#"}
+									%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+								.media-body
+									%h4.media-heading #{service.name}
+									%p.pull-left
+										%i.fa.fa-clock-o>
+										\&nbsp;#{service.service_time} minutes
+									%p.pull-right
+										%i.fa.fa-dollar>
+										\&nbsp;#{service.cost} $												
+				.span4
+					.head-padded
+						= render :partial =>"users/company_timing"
+		#reviw.tab-pane
+			%h3 Reviews
+			.row-fluid
+				.span8
+					%ul.media-list
+						%li.media
+							%a.pull-left{:href => "#"}
+								%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+							.media-body
+								%p.pull-right
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star
+								%h4.media-heading Atif Farooq
+								%p.pull-left
+									%i.fa.fa-clock-o>
+									\&nbsp;35 minutes ago
+							%p.review This service is very very good. I rank ti on five star
+						%li.media
+							%a.pull-left{:href => "#"}
+								%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+							.media-body
+								%p.pull-right
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star
+								%h4.media-heading Atif Farooq
+								%p.pull-left
+									%i.fa.fa-clock-o>
+									\&nbsp;35 minutes ago
+							%p.review This service is very very good. I rank ti on five star
+						%li.media
+							%a.pull-left{:href => "#"}
+								%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+							.media-body
+								%p.pull-right
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star
+								%h4.media-heading Atif Farooq
+								%p.pull-left
+									%i.fa.fa-clock-o>
+									\&nbsp;35 minutes ago
+							%p.review This service is very very good. I rank ti on five star
+						%li.media
+							%a.pull-left{:href => "#"}
+								%img.img-circle{:src => "/assets/user.png", :width => "50"}/
+							.media-body
+								%p.pull-right
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star>
+									\&nbsp;
+									%i.fa.fa-star
+								%h4.media-heading Atif Farooq
+								%p.pull-left
+									%i.fa.fa-clock-o>
+									\&nbsp;35 minutes ago
+							%p.review This service is very very good. I rank ti on five star
+				.span4
+					.head-padded
+						= render :partial =>"users/company_timing"
+	%script
+		disable_array = []
+		-start_date =Date.today
+		-end_date =Date.today+6.months
+		-start_date.upto(end_date) do |date|
+			-if date.wday==0
+				disable_array.push("#{date}")
+	:javascript
+		$(document).ready(function () {
+				var dateToday = new Date();
+				$('#calendar').datepicker({
+						inline: true,
+						dateFormat: 'dd-mm-yy',
+						minDate: dateToday,
+						altField: '#calendar-field',
+						 beforeShowDay: function(date){
+							var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+							return [ disable_array.indexOf(string) == -1 ]
+						},
+						onSelect: function(dateText) {
+					    date = this.value;
+					    update_slots(date);
+					  }
+				});
+
+				$('#calendar-field').change(function () {
+						$('#calendar').datepicker('setDate', $(this).val());
+				});
+		});
+		function update_slots(date){
+			$.get("/users/get_calendar_updates?service_id="+$('#slot_service_id').val()+"&date="+date,function(data){
+				
+				$('.slot_timing_dynamic').html(data);
+			})
+		}
+		$('.select_service').click(function(e){
+			$('#slot_service_id').val($(this).attr('service_id'))
+			$('#slot_service_time').val($(this).attr('service_time'))
+			$('#slot_cost').val($(this).attr('cost'))
+			service_name = $(this).attr("service_name");
+			$('.services_tab_text').text(service_name)
+			$('.staffs_tab').click();
+			date = $('#current_date').val()
+			update_slots(date);
+				
+		});
+		$('.select_staff').click(function(e){
+			$('#slot_staff_id').val($(this).attr('staff_id'))			
+			staff_name = $(this).attr("staff_name");
+			$('.staffs_tab_text').text(staff_name)
+			$('.date_tab').click();
+		});
+		
+		$('.btn-info').click(function(e){
+			if($('.create_new_slot_profile').valid()){
+				$('.confirm_tab').click();
+			}
+			e.preventDefault();
+		})
+		$('#cust_name').change(function(){
+			
+			$('.cust_name').text($(this).val())
+		})
+		$('#cust_mobile').change(function(){
+			$('.cust_mobile').text($(this).val())
+		})
+		$('#cust_email').change(function(){
+			$('.cust_email').text($(this).val())
+		})
+		$('#cust_address').change(function(){
+			$('.cust_address').text($(this).val())
+		})
+		$('#slot_notes').change(function(){
+			$('.comments').text($(this).val())
+		})		
+		$('.btn-success').click(function(e){
+			$('.create_new_slot_profile').submit();
+			e.preventDefault();
+		})						

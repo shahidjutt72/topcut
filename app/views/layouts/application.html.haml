@@ -7,7 +7,7 @@
 		= csrf_meta_tags		
 		= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
 	%body
-		-if !current_user
+		-if !current_user and !(params[:controller]=="companies" and params[:action]=="show")
 			#signin_header{style: "display: none"}
 				%h3.text-center Sign In!
 				%p.small Get a free account in 30 seconds. No credit card required. Sign in quick with your social login click on social buttons below

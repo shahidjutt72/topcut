@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy,:add_staff,:add_services]
-  before_filter :login_necessary
+  before_filter :login_necessary, :except =>[:show]
 
   # GET /companies
   # GET /companies.json
@@ -11,6 +11,7 @@ class CompaniesController < ApplicationController
   # GET /companies/1
   # GET /companies/1.json
   def show
+    @slot = Slot.new
   end
 
   def add_staff
