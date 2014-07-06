@@ -48,6 +48,7 @@ Topcut::Application.routes.draw do
   end
   match '/auth/:provider/callback' => "authentications#new", :via =>["get","post"]
   resources :manage_promotions do as_routes end
+  resources :manage_companies do as_routes end
   match "/admin" => "manage_users#index", :via => "get"  
   # match "/" => "companies#show", :via => "get"
   root 'home#index'

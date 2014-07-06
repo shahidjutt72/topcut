@@ -8,4 +8,8 @@ class Company < ActiveRecord::Base
 	accepts_nested_attributes_for :timing
 	accepts_nested_attributes_for :services
 	accepts_nested_attributes_for :staffs
+
+	def user_email
+		user.email rescue ""
+	end
 end

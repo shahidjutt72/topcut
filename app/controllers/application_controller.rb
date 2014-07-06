@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   def self.active_scaffold_controller_for(klass)
   	return ManageUsersController if klass == User
   	return ManagePromotionsController if klass == Promotion
+    return ManageCompaniesController if klass == Company
   end	
   private
 
@@ -26,7 +27,7 @@ class ApplicationController < ActionController::Base
     end	
   end
   def register_company
-    if (current_user and !current_user.company) or (current_user and current_user.company and current_user.company.staffs.length==0) or (current_user and current_user.company and current_user.company.staffs.length > 0 and current_user.company.services.length == 0) 
+    if ((current_user and !current_user.company) or (current_user and current_user.company and current_user.company.staffs.length==0) or (current_user and current_user.company and current_user.company.staffs.length > 0 and current_user.company.services.length == 0)) and (current_user and current_user.is_admin != true)
       redirect_to new_company_path
     end      
   end  

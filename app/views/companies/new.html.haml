@@ -90,6 +90,7 @@
 										= staff.text_field :phone, :class =>"input input-block-level",:placeholder => "Phone", :number =>"true"
 										-#%input.input.input-block-level{placeholder: "Phone", type: "text"}/
 									= hidden_field_tag "loop_value", "#{@company.staffs.length}"
+									= hidden_field_tag "staff_limit", "#{@company.staff_limit}"
 									.span2
 										%div.btn.btn-block.btn-success.add_more_button
 											%i.fa.fa-plus>
@@ -201,15 +202,25 @@
 			}
 			//$('.add_staff_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" placeholder="Name" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" placeholder="Email" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" placeholder="Phone" type="text"></div><div class="span2"><button class="btn btn-block btn-success add_more_button"><i class="fa fa-plus"></i>&nbsp;Add</button></div></div>');
 
-			$('.add_staff_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" required="required" placeholder="Name" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" email="true" placeholder="Email" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" number="true" placeholder="Phone" type="text"></div><div class="span2"><div class="btn btn-block btn-success remove_staff_button">Remove</div></div>');
 			len_2 = parseInt(len);
-			len_2 = len_2 + 1;
-			$('#loop_value').val(len_2);
-			event.preventDefault();
-			$('.remove_staff_button').click(function(e){
-				$(this).parent().parent().remove()
-				e.preventDefault();
-			})
+			if(len_2 < parseInt($('#staff_limit').val())){
+				$('.add_staff_new').append('<div class="row-fluid"><div class="span4"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_name" name="company[staffs_attributes]['+len+'][name]" required="required" placeholder="Name" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_email" name="company[staffs_attributes]['+len+'][email]" email="true" placeholder="Email" type="text"></div><div class="span3"><input class="input input-block-level" id="company_staffs_attributes_'+len+'_phone" name="company[staffs_attributes]['+len+'][phone]" number="true" placeholder="Phone" type="text"></div><div class="span2"><div class="btn btn-block btn-success remove_staff_button">Remove</div></div>');			
+				len_2 = len_2 + 1;
+				$('#loop_value').val(len_2);
+				event.preventDefault();
+				$('.remove_staff_button').click(function(e){
+					
+					
+					len_2 = len_2 - 1;
+					$('#loop_value').val(len_2);
+
+					$(this).parent().parent().remove();
+					e.preventDefault();
+				})
+			}
+			else{
+				alert("You Cannot add more than "+$('#staff_limit').val()+". To add more contact our team.")
+			}	
 		});
 
 		$('.update_company_staffs').click(function(e){

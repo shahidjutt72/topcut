@@ -1,9 +1,9 @@
 class ManageUsersController < AdminController
 	active_scaffold :user do |config|
-		config.list.columns = [:email, :admin_or_not, :confirmed_or_not]	
+		config.list.columns = [:email, :admin_or_not]	
 		config.create.columns = [:email,:password,:password_confirmation, :is_admin]	
 		config.update.columns = [:email, :is_admin, :notify_order,:notify_coupon,:notify_payment]	
-		config.action_links.add 'confirm_user', :label => 'Confirm the user', :page => false, :type => :member, :parameters => {}
+		# config.action_links.add 'confirm_user', :label => 'Confirm the user', :page => false, :type => :member, :parameters => {}
 		# config.action_links.add = 'confirm_user', :label =>"Confirm the user", :page => false, :type =>"member", :parameters =>{}		
 	end
 	def confirm_user
