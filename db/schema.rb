@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140706163523) do
+ActiveRecord::Schema.define(version: 20140712113714) do
 
   create_table "authentications", force: true do |t|
     t.string   "provider"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20140706163523) do
     t.integer  "service_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "time_zone_difference"
   end
 
   create_table "staffs", force: true do |t|

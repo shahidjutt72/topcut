@@ -25,6 +25,7 @@
 					= f.hidden_field :cost
 					= f.hidden_field :slot_start_time
 					= f.hidden_field :slot_end_time
+					= f.hidden_field :time_zone_difference
 					%li.li_margins
 						%label{for: "services"} Services:
 						= f.select :service_id, options_from_collection_for_select(@services,"id","name")								
@@ -54,12 +55,18 @@
 				service_time["#{s.id}"] = "#{s.service_time ? s.service_time : 0}"
 				service_cost["#{s.id}"] = "#{s.cost ? s.cost : 0}"
 			-@slots.each do |slot|
-				-start_time  = slot.slot_start_time.in_time_zone("Pacific Time (US & Canada)")
-				-end_time  = slot.slot_end_time.in_time_zone("Pacific Time (US & Canada)")
+				-#start_time  = slot.slot_start_time.in_time_zone("Pacific Time (US & Canada)")
+				-#end_time  = slot.slot_end_time.in_time_zone("Pacific Time (US & Canada)")
+				-start_time  = slot.slot_start_time
+				-end_time  = slot.slot_end_time
 				hash = {"id": "#{slot.id}","color_class": "#{slot.service.color_code}","start": new Date("#{start_time.year}","#{start_time.month-1}", "#{start_time.day}", "#{start_time.hour}","#{start_time.min}"), "end": new Date("#{end_time.year}","#{end_time.month-1}", "#{end_time.day}", "#{end_time.hour}","#{end_time.min}"),"title": "#{slot.service.name} $#{slot.service.cost}"}
 				slots_arr.push(hash);
 		:javascript
 			$(document).ready(function() {								
+				var d = new Date()
+				var n = d.getTimezoneOffset();
+				var hours = n/60
+				$('#slot_time_zone_difference').val(hours);
 				$('#staff_name').change(function(){
 				staff_id = $(this).val();
 				url = window.location.origin+"?staff="+staff_id				
@@ -100,6 +107,10 @@
 						 var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
 						 var titleField = $dialogContent.find("input[name='title']");
 						 var bodyField = $dialogContent.find("textarea[name='body']");
+						 var d = new Date()
+							var n = d.getTimezoneOffset();
+							var hours = n/60
+							$('#slot_time_zone_difference').val(hours);
 
 
 						 $dialogContent.dialog({

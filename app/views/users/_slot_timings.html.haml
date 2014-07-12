@@ -23,11 +23,15 @@
 					%tr
 						%th Morning
 				%tbody
-					-(st..et).step(1.hour) do |date|
+					-(st..et).step(service.service_time.to_i.minutes) do |date|
 						-t = Time.at(date)
 						-booked = false
 						-slots.each do |slot|
-							-if slot.slot_start_time <= t and slot.slot_end_time >= t
+							-if slot.time_zone_difference
+								-diff = slot.time_zone_difference
+							-else
+								-diff = 0	
+							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
 								-booked = true
 						-if t.hour < 12 and booked == false 
 							%tr
@@ -39,11 +43,15 @@
 					%tr
 						%th Afternoon				
 				%tbody
-					-(st..et).step(1.hour) do |date|
+					-(st..et).step(service.service_time.to_i.minutes) do |date|
 						-t = Time.at(date)
 						-booked = false
 						-slots.each do |slot|
-							-if slot.slot_start_time <= t and slot.slot_end_time >= t
+							-if slot.time_zone_difference
+								-diff = slot.time_zone_difference
+							-else
+								-diff = 0
+							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
 								-booked = true
 						-if t.hour >= 12 and t.hour < 18 and booked == false	
 							%tr
@@ -55,11 +63,15 @@
 					%tr
 						%th Evening
 				%tbody
-					-(st..et).step(1.hour) do |date|
+					-(st..et).step(service.service_time.to_i.minutes) do |date|
 						-t = Time.at(date)
 						-booked = false
 						-slots.each do |slot|
-							-if slot.slot_start_time <= t and slot.slot_end_time >= t
+							-if slot.time_zone_difference
+								-diff = slot.time_zone_difference
+							-else
+								-diff = 0
+							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
 								-booked = true
 						-if t.hour >= 18 and booked == false
 							%tr

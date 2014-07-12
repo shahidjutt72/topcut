@@ -109,7 +109,8 @@
 								= render :partial =>"users/company_timing"
 				#b_info.tab-pane
 					.padded-pane
-						= form_for @slot, :html =>{:class =>"create_new_slot_profile form-horizontal"} do |f|												
+						= form_for @slot, :html =>{:class =>"create_new_slot_profile form-horizontal"} do |f|										
+							= f.hidden_field :time_zone_difference	
 							= hidden_field_tag "current_date", Date.today
 							= f.hidden_field :service_time
 							= f.hidden_field :cost
@@ -306,6 +307,10 @@
 				disable_array.push("#{date}")
 	:javascript
 		$(document).ready(function () {
+			var d = new Date()
+			var n = d.getTimezoneOffset();
+			var hours = n/60
+			$('#slot_time_zone_difference').val(hours);
 				var dateToday = new Date();
 				$('#calendar').datepicker({
 						inline: true,
