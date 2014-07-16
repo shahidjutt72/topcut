@@ -295,3 +295,8 @@ select {
 .ui-datepicker-inline{
     display: block !important;
 }
+.loader_image{
+    position: absolute;
+    margin-top: 59px;
+    margin-left: 594px;
+}

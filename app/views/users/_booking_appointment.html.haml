@@ -99,6 +99,8 @@
 					%h3.service-head Choose a Date and Time (GAMT)
 					.row-fluid
 						.span8
+							.loader_image
+								%img{:src =>"/assets/loader_image.gif", :style =>"display:none;", :class =>"loading_slots_image"}
 							%input#calendar-field.hidden{:type => "text"}/
 							#calendar
 						.slot_timing_dynamic
@@ -323,6 +325,7 @@
 						},
 						onSelect: function(dateText) {
 					    date = this.value;
+					    $('.loading_slots_image').show();
 					    update_slots(date);
 					  }
 				});
@@ -335,6 +338,7 @@
 			$.get("/users/get_calendar_updates?service_id="+$('#slot_service_id').val()+"&date="+date,function(data){
 				
 				$('.slot_timing_dynamic').html(data);
+				$('.loading_slots_image').hide();
 			})
 		}
 		$('.select_service').click(function(e){
