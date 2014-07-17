@@ -57,8 +57,7 @@
 					%a{:style =>"cursor:default;"}
 						%span> Confirm
 						\&nbsp;&nbsp;
-						%i.fa.fa-chevron-right
-			= hidden_field_tag "company_id", @company.id			
+						%i.fa.fa-chevron-right			
 			#progressbar
 				.progress
 					.bar.bar-info.progress-bar.progress-bar-info{:style => "width: 20%;"}
@@ -121,6 +120,7 @@
 							= f.hidden_field :slot_end_time#, :value =>(Time.now-6.hours)+60.minutes
 							= f.hidden_field :service_id
 							= f.hidden_field :staff_id
+							= hidden_field_tag "company_id", @company.id			
 							.control-group
 								%label.control-label{:for => "inputEmail"} Full Name
 								.controls

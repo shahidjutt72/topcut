@@ -3,6 +3,9 @@ class SlotsController < ApplicationController
 		params[:slot][:slot_start_time] = params[:slot][:slot_start_time].to_time - (params[:slot][:time_zone_difference].to_i).hours
 		params[:slot][:slot_end_time] = params[:slot][:slot_end_time].to_time - (params[:slot][:time_zone_difference].to_i).hours
 		@slot = Slot.new(slot_params)
+		if !current_user
+			@company = Company.find_by_id(params[:company_id])
+		end
 		@slot.company_id = @company.id
 		cust = Customer.find_or_create_by_mobile_phone_and_company_id(params[:cust_mobile],@company.id)
 		cust.name = params[:cust_name]
