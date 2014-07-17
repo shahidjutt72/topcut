@@ -23,8 +23,7 @@
 		-if !(params[:controller]=="companies" and params[:action]=="show")
 			%b{:style =>"font-size:20px;margin-top:12px;"} Your Booking page:
 			%a{:href => "/bookingpage/#{@company.id}", :target =>"blank"}
-				%b http://#{request.host_with_port}/bookingpage/#{@company.id}
-			= hidden_field_tag "company_id", @company.id	
+				%b http://#{request.host_with_port}/bookingpage/#{@company.id}			
 
 		#appointment.tab-pane.active
 			%h3 Book Appointment
@@ -59,6 +58,7 @@
 						%span> Confirm
 						\&nbsp;&nbsp;
 						%i.fa.fa-chevron-right
+			= hidden_field_tag "company_id", @company.id			
 			#progressbar
 				.progress
 					.bar.bar-info.progress-bar.progress-bar-info{:style => "width: 20%;"}
