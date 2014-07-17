@@ -24,6 +24,7 @@
 			%b{:style =>"font-size:20px;margin-top:12px;"} Your Booking page:
 			%a{:href => "/bookingpage/#{@company.id}", :target =>"blank"}
 				%b http://#{request.host_with_port}/bookingpage/#{@company.id}
+			= hidden_field_tag "company_id", @company.id	
 
 		#appointment.tab-pane.active
 			%h3 Book Appointment
@@ -335,7 +336,7 @@
 				});
 		});
 		function update_slots(date){
-			$.get("/users/get_calendar_updates?service_id="+$('#slot_service_id').val()+"&date="+date,function(data){
+			$.get("/users/get_calendar_updates?service_id="+$('#slot_service_id').val()+"&date="+date+"&company_id="+$('#company_id').val(),function(data){
 				
 				$('.slot_timing_dynamic').html(data);
 				$('.loading_slots_image').hide();

@@ -127,7 +127,10 @@
 													%span.caret
 												%ul.dropdown-menu
 													%li
-														%a{href: "#"} All
+														%input{:type=> "checkbox"} All
+													-@company.staffs.each do |staff|
+														%li
+															%input{:type=> "checkbox"} #{staff.name}		
 										= hidden_field_tag "loop_value_service", "#{@company.staffs.length}"
 										.span2{:style =>"width:11.529915%"}
 											%button.btn.btn-block.btn-success.add_more_service_button
