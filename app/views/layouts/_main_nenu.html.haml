@@ -1,4 +1,4 @@
-.navbar-fixed-top.navbar{:style =>"#{(current_user or (parsms[:controller] == 'comapnies' and params[:action] == 'show'))? '' : 'margin-bottom: -75px;'}"}
+.navbar-fixed-top.navbar{:style =>"#{(current_user or (params[:controller] == 'companies' and params[:action] == 'show'))? '' : 'margin-bottom: -75px;'}"}
 	.navbar-inner
 		.container-fluid.head-padded
 			%a{:href => root_path, :class =>"logo"}
