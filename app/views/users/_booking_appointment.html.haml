@@ -104,7 +104,7 @@
 							%input#calendar-field.hidden{:type => "text"}/
 							#calendar
 						.slot_timing_dynamic
-							= render :partial =>"users/slot_timings", :locals =>{:date => Date.today+1.day, :service =>@company.services.first}												
+							= render :partial =>"users/slot_timings", :locals =>{:date => Date.today+1.day, :service =>@company.services.first, :staff =>@company.staffs.first}												
 					.row-fluid
 						.span6
 							.head-padded
@@ -119,7 +119,7 @@
 							= f.hidden_field :slot_start_time#, :value =>Time.now-6.hours
 							= f.hidden_field :slot_end_time#, :value =>(Time.now-6.hours)+60.minutes
 							= f.hidden_field :service_id
-							= f.hidden_field :staff_id
+							= f.hidden_field :staff_id, :value =>@company.staffs.first
 							= hidden_field_tag "company_id", @company.id			
 							.control-group
 								%label.control-label{:for => "inputEmail"} Full Name
@@ -129,7 +129,7 @@
 							.control-group
 								%label.control-label{:for => "inputMobile"} Mobile
 								.controls
-									= text_field_tag "cust_mobile", "", :placeholder =>"Mobile",:required => "required"
+									= text_field_tag "cust_mobile", "", :placeholder =>"+61987345678",:required => "required"
 									-#%input#Text2{:placeholder => "Mobile", :type => "text"}
 							.control-group
 								%label.control-label{:for => "inputOffice"} Email
@@ -336,7 +336,7 @@
 				});
 		});
 		function update_slots(date){
-			$.get("/users/get_calendar_updates?service_id="+$('#slot_service_id').val()+"&date="+date+"&company_id="+$('#company_id').val(),function(data){
+			$.get("/users/get_calendar_updates?service_id="+$('#slot_service_id').val()+"&staff_id="+$('#slot_staff_id').val()+"&date="+date+"&company_id="+$('#company_id').val(),function(data){
 				
 				$('.slot_timing_dynamic').html(data);
 				$('.loading_slots_image').hide();
@@ -357,6 +357,8 @@
 			$('#slot_staff_id').val($(this).attr('staff_id'))			
 			staff_name = $(this).attr("staff_name");
 			$('.staffs_tab_text').text(staff_name)
+			date = $('#current_date').val()
+			update_slots(date);
 			$('.date_tab').click();
 		});
 		

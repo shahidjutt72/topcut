@@ -1,0 +1,3 @@
+%tr
+	%td{:class =>"date_select", :slot_start_time =>t, :slot_end_time =>t+((service.service_time.to_i).minutes)}
+		%a #{t.hour.to_s.length == 1 ? "0#{t.hour}" : t.hour}:#{t.min == 0 ? "00" : t.min}

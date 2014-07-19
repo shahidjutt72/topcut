@@ -1,4 +1,5 @@
--slots = @company.slots.where("date(slot_start_time) =?",date)
+-#slots = @company.slots.where("date(slot_start_time) =?",date)
+-slots = staff.slots.where("date(slot_start_time) =?",date)
 -day_name = Timing::DAYS[date.wday]
 -start_time = eval("@company.timing.#{day_name}_opening_time if @company.timing")
 -end_time = eval("@company.timing.#{day_name}_closing_time if @company.timing")
@@ -34,9 +35,7 @@
 							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
 								-booked = true
 						-if t.hour < 12 and booked == false 
-							%tr
-								%td{:class =>"date_select", :slot_start_time =>t, :slot_end_time =>t+((service.service_time.to_i).minutes) }
-									%a #{t.hour} : #{t.min}
+							= render :partial =>"users/unbooked_time", :locals =>{:t => t, :service => service}
 						
 			%table.time-list{:style =>"float:left;width:auto;"}
 				%thead
@@ -54,9 +53,7 @@
 							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
 								-booked = true
 						-if t.hour >= 12 and t.hour < 18 and booked == false	
-							%tr
-								%td{:class =>"date_select", :slot_start_time =>t, :slot_end_time =>t+((service.service_time.to_i).minutes)}
-									%a #{t.hour} : #{t.min}
+							= render :partial =>"users/unbooked_time", :locals =>{:t => t, :service => service}
 						
 			%table.time-list{:style =>"float:left;width:auto;"}
 				%thead
@@ -74,9 +71,7 @@
 							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
 								-booked = true
 						-if t.hour >= 18 and booked == false
-							%tr
-								%td{:class =>"date_select", :slot_start_time =>t, :slot_end_time =>t+((service.service_time.to_i).minutes)}
-									%a #{t.hour} : #{t.min}			
+							= render :partial =>"users/unbooked_time", :locals =>{:t => t, :service => service}										
 :javascript
 	$('.date_select').click(function(e){			
 		$('#slot_slot_start_time').val($(this).attr('slot_start_time'));

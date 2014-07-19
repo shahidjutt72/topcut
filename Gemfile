@@ -10,7 +10,10 @@ gem 'clickatell'
 # require 'rubygems'
 # require 'clickatell'
 
-# api = Clickatell::API.authenticate('your_api_id', 'your_username', 'your_password')
+# Client ID: NSSV81
+# Username: shahidjutt72
+# Password: 786999ab
+# api = Clickatell::API.authenticate('3480922', 'shahidjutt72', '786999ab')
 # api.send_message('447771234567', 'Hello from clickatell')
 # for sending the customize content we will have to buy the credits.
 gem 'debugger'
