@@ -12,4 +12,12 @@ class Company < ActiveRecord::Base
 	def user_email
 		user.email rescue ""
 	end
+
+	def send_sms_status
+		if self.send_sms == true
+			"Enabled"
+		else
+			"Blocked"
+		end
+	end
 end

@@ -16,18 +16,20 @@ class SlotsController < ApplicationController
 		cust.address = params[:cust_address]
 		cust.city = params[:cust_city]
 		cust.save
-		begin
-			api = Clickatell::API.authenticate('3480922', 'shahidjutt72', '786999ab')
-			mobile = params[:cust_mobile]
-			if mobile.first != "+"
-				mobile = mobile.prepend("+")
-			end	
-			api.send_message(mobile, 'Hello from clickatell')
-		rescue
-		end	
+		if @company.send_sms == true
+			begin
+				api = Clickatell::API.authenticate('3480922', 'shahidjutt72', '786999ab')
+				mobile = params[:cust_mobile]
+				if mobile.first != "+"
+					mobile = mobile.prepend("+")
+				end	
+				api.send_message(mobile, 'Hello from clickatell')
+			rescue
+			end
+		end		
 		@slot.customer_id = cust.id
 		@slot.save
-		date = @slot.slot_start_time.to_date
+		date = @slot.slot_start_time+((@slot.time_zone_difference.to_i).hours)
 		redirect_to request.referrer, :notice =>"Your #{service.name} Successfully Appointed to #{staff.name} on #{date}"		
 	end
 	private

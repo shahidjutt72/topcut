@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712113714) do
+ActiveRecord::Schema.define(version: 20140720113008) do
 
   create_table "authentications", force: true do |t|
     t.string   "provider"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20140712113714) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "staff_limit",   default: 3
+    t.boolean  "send_sms"
+    t.boolean  "send_email"
   end
 
 # Could not dump table "customers" because of following NoMethodError
