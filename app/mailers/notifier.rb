@@ -7,9 +7,8 @@ class Notifier < ActionMailer::Base
   #   en.notifier.customer_email.subject
   #
   def customer_email(email)
-    @greeting = "Hi"
-    subject => "Appiontment Email"
+    @greeting = "Hi"    
 
-    mail to: email
+    mail to: email, :subject =>"Appointment Email"
   end
 end
