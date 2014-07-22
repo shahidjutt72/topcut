@@ -30,6 +30,7 @@ class SlotsController < ApplicationController
 		@slot.customer_id = cust.id
 		@slot.save
 		date = @slot.slot_start_time+((@slot.time_zone_difference.to_i).hours)
+		Notifier.staff_email(staff,@slot,cust,service,@company).deliver
 		redirect_to request.referrer, :notice =>"Your #{service.name} Successfully Appointed to #{staff.name} on #{date}"		
 	end
 	private
