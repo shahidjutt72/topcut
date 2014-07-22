@@ -6,9 +6,9 @@ class Notifier < ActionMailer::Base
   #
   #   en.notifier.customer_email.subject
   #
-  def customer_email
+  def customer_email(email)
     @greeting = "Hi"
 
-    mail to: "shahidjutt72@yahoo.com"
+    mail to: email
   end
 end
