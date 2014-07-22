@@ -5,7 +5,7 @@ Topcut::Application.configure do
     :port => "25",
     :authentication => "plain",
     :user_name =>"netvisionsolutions",
-    :password =>"Nv$Apps20",
+    :password =>"Nv$Apps20"
   }
   # Settings specified here will take precedence over those in config/application.rb.
 

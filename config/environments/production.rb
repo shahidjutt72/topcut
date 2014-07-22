@@ -7,8 +7,8 @@ Topcut::Application.configure do
     :address =>"smtp.sendgrid.com",
     :port => "25",
     :authentication => "plain",
-    :user_name =>"shahidjutt72",
-    :password =>"786999ab",
+    :user_name =>"netvisionsolutions",
+    :password =>"Nv$Apps20"
   }
   config.action_mailer.default_url_options = {:host => 'http://topcut.herokuapp.com'}
   config.cache_classes = true
