@@ -1,7 +1,7 @@
 Topcut::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address =>"smtp.sendgrid.com",
+    :address =>"smtp.sendgrid.net",
     :port => "25",
     :authentication => "plain",
     :user_name =>"netvisionsolutions",
