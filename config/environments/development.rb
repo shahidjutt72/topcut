@@ -4,8 +4,8 @@ Topcut::Application.configure do
     :address =>"smtp.sendgrid.com",
     :port => "25",
     :authentication => "plain",
-    :user_name =>"shahidjutt72",
-    :password =>"786999ab",
+    :user_name =>"netvisionsolutions",
+    :password =>"Nv$Apps20",
   }
   # Settings specified here will take precedence over those in config/application.rb.
 
