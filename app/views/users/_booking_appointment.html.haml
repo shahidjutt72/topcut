@@ -129,7 +129,7 @@
 							.control-group
 								%label.control-label{:for => "inputMobile"} Mobile
 								.controls
-									= text_field_tag "cust_mobile", "", :placeholder =>"+61987345678",:required => "required"
+									= text_field_tag "cust_mobile", "", :placeholder =>"+61987345678",:required => "required", :maxlength => 12
 									-#%input#Text2{:placeholder => "Mobile", :type => "text"}
 							.control-group
 								%label.control-label{:for => "inputOffice"} Email

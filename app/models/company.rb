@@ -20,4 +20,11 @@ class Company < ActiveRecord::Base
 			"Blocked"
 		end
 	end
+	def send_email_status
+		if self.send_email == true
+			"Enabled"
+		else
+			"Blocked"
+		end
+	end
 end
