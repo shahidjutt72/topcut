@@ -32,7 +32,7 @@ class SlotsController < ApplicationController
 		date = @slot.slot_start_time+((@slot.time_zone_difference.to_i).hours)
 		if @company.send_email == true
 			Notifier.staff_email(staff,@slot,cust,service,@company).deliver
-			if cust.email
+			if cust.email and cust.email != ""
 				Notifier.customer_email(staff,@slot,cust,service,@company).deliver
 			end	
 		end	
