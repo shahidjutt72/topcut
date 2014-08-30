@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720113008) do
+ActiveRecord::Schema.define(version: 20140817130139) do
 
   create_table "authentications", force: true do |t|
     t.string   "provider"
@@ -99,6 +99,11 @@ ActiveRecord::Schema.define(version: 20140720113008) do
   create_table "table_customers_staffs", force: true do |t|
     t.integer "customer_id"
     t.integer "staff_id"
+  end
+
+  create_table "table_services_slots", id: false, force: true do |t|
+    t.integer "service_id"
+    t.integer "slot_id"
   end
 
   create_table "table_services_staffs", force: true do |t|

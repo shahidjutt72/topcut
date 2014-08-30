@@ -1,0 +1,80 @@
+-#slots = @company.slots.where("date(slot_start_time) =?",date)
+-slots = staff.slots.where("date(slot_start_time) =?",date)
+-day_name = Timing::DAYS[date.wday]
+-start_time = eval("@company.timing.#{day_name}_opening_time if @company.timing")
+-end_time = eval("@company.timing.#{day_name}_closing_time if @company.timing")
+-if start_time and end_time
+	-split_arr = start_time.split(":")
+	-split_end_arr = end_time.split(":")
+	-if split_arr.length > 1 and split_end_arr.length > 1
+		-start_hour = split_arr[0].to_i
+		-if split_arr[1].include?("P")
+			-start_hour = start_hour+12 
+		-start_min = split_arr[1].split(" ")[0].to_i
+
+		-end_hour = split_end_arr[0].to_i
+		-if split_end_arr[1].include?("P")
+			-end_hour = end_hour+12 
+		-end_min = split_end_arr[1].split(" ")[0].to_i
+		-st = Time.new(date.year,date.month,date.day,start_hour,start_min).to_i
+		-et = Time.new(date.year,date.month,date.day,end_hour,end_min).to_i
+		.span4
+			%table.time-list{:style =>"float:left;width:auto;"}
+				%thead
+					%tr
+						%th Morning
+				%tbody
+					-(st..et).step(service.service_time.to_i.minutes) do |date|
+						-t = Time.at(date)
+						-booked = false
+						-slots.each do |slot|
+							-if slot.time_zone_difference
+								-diff = slot.time_zone_difference
+							-else
+								-diff = 0	
+							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
+								-booked = true
+						-if t.hour < 12 and booked == false 
+							= render :partial =>"users/unbooked_time", :locals =>{:t => t, :service => service}
+						
+			%table.time-list{:style =>"float:left;width:auto;"}
+				%thead
+					%tr
+						%th Afternoon				
+				%tbody
+					-(st..et).step(service.service_time.to_i.minutes) do |date|
+						-t = Time.at(date)
+						-booked = false
+						-slots.each do |slot|
+							-if slot.time_zone_difference
+								-diff = slot.time_zone_difference
+							-else
+								-diff = 0
+							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
+								-booked = true
+						-if t.hour >= 12 and t.hour < 18 and booked == false	
+							= render :partial =>"users/unbooked_time", :locals =>{:t => t, :service => service}
+						
+			%table.time-list{:style =>"float:left;width:auto;"}
+				%thead
+					%tr
+						%th Evening
+				%tbody
+					-(st..et).step(service.service_time.to_i.minutes) do |date|
+						-t = Time.at(date)
+						-booked = false
+						-slots.each do |slot|
+							-if slot.time_zone_difference
+								-diff = slot.time_zone_difference
+							-else
+								-diff = 0
+							-if slot.slot_start_time+diff.hours <= t and slot.slot_end_time+diff.hours >= t
+								-booked = true
+						-if t.hour >= 18 and booked == false
+							= render :partial =>"users/unbooked_time", :locals =>{:t => t, :service => service}										
+:javascript
+	$('.date_select').click(function(e){			
+		$('#slot_slot_start_time').val($(this).attr('slot_start_time'));
+		$('#slot_slot_end_time').val($(this).attr('slot_end_time'));
+		$('.customer_tab').click();
+	});						

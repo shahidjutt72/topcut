@@ -27,19 +27,19 @@
 
 		#appointment.tab-pane.active
 			%h3 Book Appointment
-			%ul#Ul5.nav.nav-tabs.appointment-tabs
+			%ul#Ul5.nav.nav-tabs.appointment-tabs				
 				%li.active
-					%a{"data-toggle" => "tab", :href => "#b_service", :class =>"services_tab" ,:style=>"display:none;"}
-					%a{:style =>"cursor:default;"}	
-						%span{:class =>"services_tab_text"}> Service
-						\&nbsp;&nbsp;
-						%i.fa.fa-chevron-right
-				%li
 					%a{"data-toggle" => "tab", :href => "#b_provider", :class =>"staffs_tab",:style=>"display:none;"}
 					%a{:style =>"cursor:default;"}	
 						%span{:class =>"staffs_tab_text"}> Provider
 						\&nbsp;&nbsp;
 						%i.fa.fa-chevron-right
+				%li
+					%a{"data-toggle" => "tab", :href => "#b_service", :class =>"services_tab" ,:style=>"display:none;"}
+					%a{:style =>"cursor:default;"}	
+						%span{:class =>"services_tab_text"}> Service
+						\&nbsp;&nbsp;
+						%i.fa.fa-chevron-right		
 				%li
 					%a{"data-toggle" => "tab", :href => "#b_date", :class =>"date_tab",:style=>"display:none;"}
 					%a{:style =>"cursor:default;"}
@@ -65,22 +65,8 @@
 					.bar.bar-primary.progress-bar.progress-bar-primary{:style => "width: 20%;"}
 					.bar.bar-danger.progress-bar.progress-bar-danger{:style => "width: 20%;"}
 					.bar.bar-success.progress-bar.progress-bar-success{:style => "width: 20%;"}
-			.tab-content
-				#b_service.tab-pane.active
-					%h3.service-head All Services
-					.padded-pane
-						%ul.service-list
-							-@company.services.each do |service|
-								%li{:class =>"select_service", :service_id => service.id , :service_time => service.service_time, :cost => service.cost,:service_name =>service.name}
-									%a
-										%span.pull-left #{service.name}
-										%span.pull-right.amount
-											%i.fa.fa-dollar>
-											\&nbsp;#{service.cost} $
-										%span.pull-right.time
-											%i.fa.fa-clock-o>
-											\&nbsp;#{service.service_time} minutes													
-				#b_provider.tab-pane
+			.tab-content				
+				#b_provider.tab-pane.active
 					%h3.service-head All Providers
 					.row-fluid
 						.span8
@@ -95,6 +81,23 @@
 						.span4
 							.head-padded
 								= render :partial =>"users/company_timing"
+				#b_service.tab-pane
+					%h3.service-head All Services
+					.padded-pane
+						%ul.service-list
+							-@company.services.each do |service|
+								%li{:class =>"select_services", :service_id => service.id , :service_time => service.service_time, :cost => service.cost,:service_name =>service.name}
+									
+									%a
+										= check_box_tag "slot[service_ids][]", service.id, :class =>"services_slot_class"
+										/ %span.pull-left #{service.name}
+										%span #{service.name} 
+										%span.pull-right.amount
+											%i.fa.fa-dollar>
+											\&nbsp;#{service.cost} $
+										%span.pull-right.time
+											%i.fa.fa-clock-o>
+											\&nbsp;#{service.service_time} minutes													
 				#b_date.tab-pane
 					%h3.service-head Choose a Date and Time (GAMT)
 					.row-fluid
@@ -348,7 +351,8 @@
 			$('#slot_cost').val($(this).attr('cost'))
 			service_name = $(this).attr("service_name");
 			$('.services_tab_text').text(service_name)
-			$('.staffs_tab').click();
+			//$('.staffs_tab').click();
+			$('.date_tab').click();
 			date = $('#current_date').val()
 			update_slots(date);
 				
@@ -359,7 +363,8 @@
 			$('.staffs_tab_text').text(staff_name)
 			date = $('#current_date').val()
 			update_slots(date);
-			$('.date_tab').click();
+			//$('.date_tab').click();
+			$('.services_tab').click();
 		});
 		
 		$('.btn-info').click(function(e){
